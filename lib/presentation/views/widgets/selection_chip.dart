@@ -1,8 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class SelectionChip extends StatefulWidget {
-  final List<String> chips;
-  final Function(String) onSizeSelected;
+  final List chips;
+  final Function(dynamic) onSizeSelected;
 
   const SelectionChip(
       {super.key, required this.chips, required this.onSizeSelected});
@@ -12,7 +14,7 @@ class SelectionChip extends StatefulWidget {
 }
 
 class SizeSelectionChipState extends State<SelectionChip> {
-  String? _selectedSize;
+  dynamic _selectedSize;
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +25,12 @@ class SizeSelectionChipState extends State<SelectionChip> {
             (size) => ChoiceChip(
               labelStyle: const TextStyle(fontSize: 11),
               padding: const EdgeInsets.all(0),
-              label: Text(size),
-              selected: _selectedSize == size,
+              label: Text(size.toString()),
+              selected: _selectedSize == size.toString(),
               onSelected: (selected) {
                 setState(() {
-                  _selectedSize = selected ? size : null;
-                  //   widget.onSizeSelected(_selectedSize!);
+                  _selectedSize = selected ? size.toString() : null;
+                  widget.onSizeSelected(_selectedSize);
                 });
               },
             ),

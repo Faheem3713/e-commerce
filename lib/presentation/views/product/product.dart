@@ -1,6 +1,9 @@
 import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/views/product/product_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../application/product/product_bloc.dart';
+import '../../../infrastructure/models/product_model.dart';
 import '../widgets/selection_chip.dart';
 import '../widgets/appbarwidget.dart';
 import '../widgets/outlined_button.dart';
@@ -9,65 +12,90 @@ import 'widget/product_card.dart';
 import 'widget/radio_button.dart';
 
 class ProductPage extends StatelessWidget {
-  const ProductPage({super.key, this.showAppbar = false});
+  const ProductPage({super.key, this.showAppbar = false, required this.event});
+  final ProductEvent event;
   final bool showAppbar;
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<ProductBloc>(context).add(event);
+    });
     return Scaffold(
         appBar: showAppbar
             ? const AppBarWidget(
                 isIcon: false,
               )
             : null,
-        body: ListView(
-          padding: AppConstants.padding10,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('All products'),
-                    CustomOutlinedbutton(
-                      text: 'Filter',
-                      onPressed: () {
-                        filterDialogue(context);
-                      },
-                    )
-                  ],
-                ),
-                AppConstants.height10,
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 2,
-                    childAspectRatio: 1 / 1.35,
-                  ),
-                  itemCount: 10,
-                  itemBuilder: (BuildContext context, int itemIndex) {
-                    return ProductCard(
-                      rating: '3.5',
-                      onFavoritePressed: () {},
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ProductDetailsPage(),
-                            ));
-                      },
-                      image: 'assets/images/aauwen-r_grey_16_1_4 2.png',
-                      title: 'title',
-                      price: '199',
-                    );
-                  },
-                ),
-                // Add any widgets or text you want to appear below the GridView here
-              ],
-            )
-          ],
+        body: BlocBuilder<ProductBloc, ProductState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state.isError) {
+              return const Center(child: Text('Error'));
+            } else if (state.products.isNotEmpty) {
+              return ListView(
+                padding: AppConstants.padding10,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('All products'),
+                          CustomOutlinedbutton(
+                            text: 'Filter',
+                            onPressed: () {
+                              filterDialogue(context);
+                            },
+                          )
+                        ],
+                      ),
+                      AppConstants.height10,
+                      BlocBuilder<ProductBloc, ProductState>(
+                        builder: (context, state) {
+                          return GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 2,
+                              childAspectRatio: 1 / 1.35,
+                            ),
+                            itemCount: state.products.length,
+                            itemBuilder: (BuildContext context, int itemIndex) {
+                              return ProductCard(
+                                product: state.products[itemIndex],
+                                rating: '3.5',
+                                onFavoritePressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductDetailsPage(
+                                                product:
+                                                    state.products[itemIndex]),
+                                      ));
+                                },
+                                image: state.products[itemIndex].image[0],
+                                title: state.products[itemIndex].name,
+                                price:
+                                    state.products[itemIndex].price.toString(),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              );
+            } else {
+              return const Text('No Products');
+            }
+          },
         ));
   }
 

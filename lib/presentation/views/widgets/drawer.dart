@@ -1,5 +1,7 @@
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
 import 'package:ecommerce/presentation/core/theme/text_styles.dart';
+import 'package:ecommerce/presentation/views/admin/admin_page.dart';
+import 'package:ecommerce/presentation/views/admin/coupon.dart';
 import 'package:flutter/material.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -31,9 +33,21 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.person),
-            title: const Text(' My Profile '),
+            title: const Text(' Admin '),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (ctx) => AdminPage()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text(' Coupons '),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Coupons(),
+                  ));
             },
           ),
           ListTile(
@@ -52,7 +66,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.edit),
-            title: const Text(' Edit Profile '),
+            title: const Text(' Profile '),
             onTap: () {
               Navigator.pop(context);
             },

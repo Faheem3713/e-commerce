@@ -1,5 +1,7 @@
+import 'package:ecommerce/application/cart/cart_bloc.dart';
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cart/cart.dart';
 
@@ -12,8 +14,7 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   State<AppBarWidget> createState() => _AppBarWidgetState();
 
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(70);
+  Size get preferredSize => const Size.fromHeight(70);
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {
@@ -36,16 +37,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           : Image.asset("assets/images/ezgif 2.png"),
       actions: widget.isIcon && !isSearch
           ? [
-              IconButton(
-                icon: const Icon(
-                  Icons.shopping_cart,
-                  color: AppColor.unselectedColor,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (ctx) => CartPage()));
-                },
-              ),
+              const CartBadge(),
               IconButton(
                 icon: const Icon(Icons.search, color: AppColor.unselectedColor),
                 onPressed: () {
@@ -56,6 +48,40 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               )
             ]
           : [],
+    );
+  }
+}
+
+class CartBadge extends StatelessWidget {
+  const CartBadge({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        IconButton(
+          icon: const Icon(Icons.shopping_cart),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (ctx) => CartPage()));
+          },
+        ),
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.decelerate,
+          height: context.watch<CartBloc>().state.data.isNotEmpty ? 20 : 0,
+          width: context.watch<CartBloc>().state.data.isNotEmpty ? 20 : 0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.red,
+          ),
+          child: Center(
+              child: Text(
+            context.watch<CartBloc>().state.data.length.toString(),
+            style: const TextStyle(fontSize: 12, color: Colors.white),
+          )),
+        ),
+      ],
     );
   }
 }

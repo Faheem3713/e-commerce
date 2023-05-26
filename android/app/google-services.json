@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "310222645693",
+    "firebase_url": "https://e-commerce-fa443-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "e-commerce-fa443",
     "storage_bucket": "e-commerce-fa443.appspot.com"
   },
@@ -14,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "310222645693-88gatslmev8dseavg7fcougfjh52kosn.apps.googleusercontent.com",
+          "client_id": "310222645693-t1nopj72j71vvml1htbicaror2knu2l1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +30,13 @@
             {
               "client_id": "310222645693-88gatslmev8dseavg7fcougfjh52kosn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "310222645693-g0ujoj0l923nqmnped0devq4csm3ns74.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ecommerce"
+              }
             }
           ]
         }

@@ -14,17 +14,20 @@ class ButtonWidget extends StatelessWidget {
   final double width;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        fixedSize: Size(width, 46),
-        shape: const RoundedRectangleBorder(),
-        backgroundColor: AppColor.primaryColor,
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-            fontSize: 15, color: AppColor.white, fontWeight: FontWeight.w300),
+    return SizedBox(
+      width: width,
+      height: 46,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          shape: const RoundedRectangleBorder(),
+          backgroundColor: AppColor.primaryColor,
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(
+              fontSize: 18, color: AppColor.white, fontWeight: FontWeight.w300),
+        ),
       ),
     );
   }

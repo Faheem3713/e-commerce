@@ -1,3 +1,4 @@
+import 'package:ecommerce/application/product/product_bloc.dart';
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
 import 'package:ecommerce/presentation/views/home/home_page.dart';
 import 'package:ecommerce/presentation/views/product/product.dart';
@@ -13,8 +14,8 @@ class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   final List _screens = [
     const HomePage(),
-    const ProductPage(),
-    MyOrderPage(),
+    ProductPage(event: ProductEvent.allProducts()),
+    const MyOrderPage(),
     const MyWishList(),
     ProfilePage(),
   ];
@@ -40,14 +41,21 @@ class MainScreen extends StatelessWidget {
                       icon: Icon(Icons.home),
                       label: 'Home'),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.search), label: 'Search'),
+                      backgroundColor: AppColor.primaryColor,
+                      icon: Icon(Icons.search),
+                      label: 'Search'),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.shopping_bag_outlined), label: 'Orders'),
+                      backgroundColor: AppColor.primaryColor,
+                      icon: Icon(Icons.shopping_bag_outlined),
+                      label: 'Orders'),
                   BottomNavigationBarItem(
+                      backgroundColor: AppColor.primaryColor,
                       icon: Icon(Icons.favorite_outline_outlined),
                       label: 'Favourite'),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.person_2_outlined), label: 'Profile')
+                      backgroundColor: AppColor.primaryColor,
+                      icon: Icon(Icons.person_2_outlined),
+                      label: 'Profile')
                 ]),
             body: _screens[page],
           );

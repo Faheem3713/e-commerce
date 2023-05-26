@@ -35,8 +35,8 @@ class ForgotPassword extends StatelessWidget {
               child: ButtonWidget(
                 width: 140,
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (ctx) => OtpVerification()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (ctx) => OtpVerification()));
                 },
                 text: 'CONTINUE',
               ),

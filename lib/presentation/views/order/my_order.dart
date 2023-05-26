@@ -1,92 +1,46 @@
+import 'package:ecommerce/application/cart/cart_bloc.dart';
+import 'package:ecommerce/application/payment/payment_cubit.dart';
 import 'package:ecommerce/presentation/core/constants/constants.dart';
-import 'package:ecommerce/presentation/core/theme/app_color.dart';
-import 'package:ecommerce/presentation/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'widgets/order_card.dart';
 
 class MyOrderPage extends StatelessWidget {
-  MyOrderPage({super.key});
+  const MyOrderPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: ListView(
-      children: [
-        ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => OrderCard(
-                orderDate: 'khk',
-                itemName: 'itemName',
-                itemImage: 'assets/images/aauwen-r_grey_16_1_4 2.png',
-                itemPrice: 199,
-                itemQuantity: 2),
-            separatorBuilder: (context, index) => AppConstants.height10,
-            itemCount: 6)
-      ],
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<PaymentCubit>().getOrders();
+    });
+    return Scaffold(body: BlocBuilder<PaymentCubit, PaymentState>(
+      builder: (context, state) {
+        print(state.orders.length);
+        return state.isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : state.orders.isEmpty
+                ? const Center(child: Text('No data'))
+                : state.orders.isNotEmpty
+                    ? ListView(
+                        children: [
+                          ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return OrderCard(
+                                  cartItem: state.orders[index],
+                                );
+                              },
+                              separatorBuilder: (context, index) =>
+                                  AppConstants.height10,
+                              itemCount: state.orders.length)
+                        ],
+                      )
+                    : Text('error');
+        ;
+      },
     ));
-  }
-}
-
-class OrderCard extends StatelessWidget {
-  final String itemName;
-  final String itemImage;
-  final double itemPrice;
-  final int itemQuantity;
-  final String orderDate;
-
-  OrderCard(
-      {required this.itemName,
-      required this.itemImage,
-      required this.itemPrice,
-      required this.itemQuantity,
-      required this.orderDate});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColor.grey,
-      padding: const EdgeInsets.all(5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Container(
-              height: 80.0,
-              width: 80.0,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(itemImage),
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: ListTile(
-              title: Text(itemName),
-              subtitle: Text(
-                '\$${itemPrice.toString()}',
-                style: CustomStyles.ktitleTextStyle,
-              ),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Qty:',
-                    style: CustomStyles.kSubtitleTextStyle,
-                  ),
-                  Text(
-                    '$itemQuantity',
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

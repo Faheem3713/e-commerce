@@ -1,24 +1,28 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
+import 'package:ecommerce/presentation/views/auth/sign_up.dart';
+import 'package:ecommerce/presentation/views/main_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../application/auth/auth_bloc.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/textfield.dart';
 
 class OtpVerification extends StatelessWidget {
-  OtpVerification({Key? key}) : super(key: key);
+  OtpVerification({
+    Key? key,
+    required this.verificationId,
+    required this.phoneNumber,
+  }) : super(key: key);
+  final String verificationId;
+  final String phoneNumber;
 
   final _otpController = TextEditingController();
   final ValueNotifier<int> resetOtpCountdown = ValueNotifier(5);
-
-  void _startTimer() {
-    resetOtpCountdown.value = 5;
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      resetOtpCountdown.value == 0 ? timer.cancel() : resetOtpCountdown.value--;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     _startTimer();
@@ -37,6 +41,7 @@ class OtpVerification extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w900, height: 3),
             ),
             CustomTextField(
+              keyBoardType: TextInputType.phone,
               controller: _otpController,
               placeholderText: 'Enter your OTP',
               prefixIcon: Icons.person,
@@ -50,7 +55,12 @@ class OtpVerification extends StatelessWidget {
                   builder: (context, remainingSeconds, _) {
                     return remainingSeconds == 0
                         ? InkWell(
-                            onTap: _startTimer,
+                            onTap: () {
+                              _startTimer();
+                              context
+                                  .read<AuthBloc>()
+                                  .add(AuthEvent.resentCode(phoneNumber));
+                            },
                             child: const Text('Resend'),
                           )
                         : RichText(
@@ -82,9 +92,19 @@ class OtpVerification extends StatelessWidget {
             Center(
               child: ButtonWidget(
                 width: 140,
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (ctx) => OtpVerification()));
+                onPressed: () async {
+                  final auth = FirebaseAuth.instance;
+                  PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                      verificationId: verificationId,
+                      smsCode: _otpController.text);
+                  try {
+                    await auth.signInWithCredential(credential);
+                    checkNumberIsRegistered(
+                        number: phoneNumber, context: context);
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Invalid OTP')));
+                  }
                 },
                 text: 'CONTINUE',
               ),
@@ -94,5 +114,34 @@ class OtpVerification extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _startTimer() {
+    resetOtpCountdown.value = 40;
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      resetOtpCountdown.value == 0 ? timer.cancel() : resetOtpCountdown.value--;
+    });
+  }
+
+  checkNumberIsRegistered(
+      {required String number, required BuildContext context}) async {
+    try {
+      final dbref = FirebaseDatabase.instance.ref();
+      await dbref.child("Users").once().then((data) {
+        for (var i in data.snapshot.children) {
+          String data = i.child("phoneNo").value.toString();
+
+          if ('+91$number' == data) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (ctx) => MainScreen()));
+            return;
+          }
+        }
+        Navigator.push(
+            context, MaterialPageRoute(builder: (ctx) => SignUpPage()));
+      });
+    } catch (e) {
+      return false;
+    }
   }
 }

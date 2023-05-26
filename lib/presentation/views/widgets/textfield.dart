@@ -7,18 +7,30 @@ class CustomTextField extends StatelessWidget {
   final String placeholderText;
   final IconData? prefixIcon;
   final bool enabled;
-  const CustomTextField(
+  bool obscureText;
+  TextInputType keyBoardType;
+  void Function(String)? onChanged = (p0) {};
+  String? Function(String?)? validator = (p0) => null;
+  CustomTextField(
       {super.key,
       required this.controller,
       required this.placeholderText,
       this.prefixIcon,
-      this.enabled = true});
+      this.enabled = true,
+      this.onChanged,
+      this.validator,
+      this.obscureText = false,
+      this.keyBoardType = TextInputType.text});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      //  height: 50,
       child: TextFormField(
+        keyboardType: keyBoardType,
+        obscureText: obscureText,
+        validator: validator,
+        onChanged: onChanged,
         enabled: enabled,
         controller: controller,
         decoration: InputDecoration(

@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:ecommerce/application/product/product_bloc.dart';
+import 'package:ecommerce/infrastructure/models/product_model.dart';
 import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
 import 'package:ecommerce/presentation/core/theme/text_styles.dart';
@@ -5,45 +9,62 @@ import 'package:ecommerce/presentation/views/widgets/appbarwidget.dart';
 import 'package:ecommerce/presentation/views/widgets/button_widget.dart';
 import 'package:ecommerce/presentation/views/widgets/selection_chip.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../../application/cart/cart_bloc.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-  const ProductDetailsPage({super.key});
-
+  ProductDetailsPage({super.key, required this.product});
+  final Products product;
+  String shoeSize = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(isIcon: true),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child: ListView(
           children: [
-            Image.asset(
-              'assets/images/aauwen-r_grey_16_1_4 2.png',
+            SizedBox(
+              height: 200,
               width: double.infinity,
-              fit: BoxFit.fill,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => product.image.isEmpty
+                    ? const SizedBox()
+                    : Image.network(
+                        product.image[index],
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                      ),
+                itemCount: product.image.length,
+              ),
             ),
             const Text(
               '. . . . .',
               style: TextStyle(
-                  color: AppColor.unselectedColor,
+                  color: AppColor.grey,
                   fontSize: 25,
                   fontWeight: FontWeight.w900),
             ),
             ListTile(
               onTap: () {},
-              title: const Text('Almond Toe'),
+              title: Text(product.name),
               subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('\$35.66'),
                   Text(
-                    '\$35.66',
-                    style: CustomStyles.ktitleTextStyle
-                        .copyWith(color: AppColor.red),
+                    '₹${product.price}',
+                    style: CustomStyles.titleLarge
+                        .copyWith(decoration: TextDecoration.lineThrough),
                   ),
-                  AppConstants.height10,
+                  AppConstants.width10,
+                  Text(
+                    '₹${product.discount}',
+                    style:
+                        CustomStyles.titleLarge.copyWith(color: AppColor.red),
+                  ),
                 ],
               ),
             ),
@@ -52,28 +73,34 @@ class ProductDetailsPage extends StatelessWidget {
               children: [
                 const Text('Size '),
                 SelectionChip(
-                  chips: const ['30', '31', '32', '34'],
-                  onSizeSelected: (p0) {},
+                  chips: product.sizes,
+                  onSizeSelected: (value) {
+                    shoeSize = value;
+                  },
                 ),
               ],
             ),
-            const Spacer(),
+            const Text(
+              '\nDescription:\n',
+              style: CustomStyles.titleLarge,
+            ),
+            Text('${product.description}\n'),
             Container(
               color: AppColor.unselectedColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Expanded(
-                      child: Center(
-                          child: Text(
-                    "1",
-                    style: CustomStyles.titleLarge,
-                  ))),
-                  ButtonWidget(
-                      text: 'ADD TO CART',
-                      onPressed: () {},
-                      width: MediaQuery.of(context).size.width * .7),
-                ],
+              child: ButtonWidget(
+                width: double.infinity,
+                text: 'ADD TO CART',
+                onPressed: () {
+                  if (shoeSize.isEmpty) {
+                    Fluttertoast.showToast(msg: 'Select the size');
+                    return;
+                  }
+                  context.read<CartBloc>().add(
+                      CartEvent.addToCart(product: product, option: 'cart'));
+                  context
+                      .read<CartBloc>()
+                      .add(const CartEvent.getCart(option: 'cart'));
+                },
               ),
             )
           ],

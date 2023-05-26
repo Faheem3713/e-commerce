@@ -1,8 +1,6 @@
 import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/core/theme/text_styles.dart';
-import 'package:ecommerce/presentation/views/auth/sign_in.dart';
 import 'package:flutter/material.dart';
-
 import '../widgets/textfield.dart';
 
 class ProfilePage extends StatelessWidget {
