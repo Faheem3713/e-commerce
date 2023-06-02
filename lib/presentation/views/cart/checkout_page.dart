@@ -1,14 +1,10 @@
-import 'package:ecommerce/application/cart/cart_bloc.dart';
 import 'package:ecommerce/application/payment/payment_cubit.dart';
-import 'package:ecommerce/infrastructure/repository/razorpay_integration.dart';
 import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
 import 'package:ecommerce/presentation/views/cart/payment_page.dart';
-import 'package:ecommerce/presentation/views/main_screen.dart';
 import 'package:ecommerce/presentation/views/widgets/outlinedTextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../infrastructure/models/product_model.dart';
 import '../widgets/button_widget.dart';
 
@@ -171,7 +167,7 @@ class CheckoutPage extends StatelessWidget {
           .showSnackBar(const SnackBar(content: Text('Field cannot be empty')));
       return;
     }
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => PaymentPage(
@@ -180,6 +176,7 @@ class CheckoutPage extends StatelessWidget {
                 discount: cart.discount,
                 items: cart.items
                     .map((e) => CartItem(
+                        totalQty: e.totalQty,
                         zipCode: _zipController.text,
                         paymentMethod: 'COD',
                         product: e.product,
@@ -209,6 +206,7 @@ class Cart {
 class CartItem {
   final Products product;
   final int quantity;
+  final int totalQty;
   final String? date;
   final String? name;
   final String? address;
@@ -216,8 +214,11 @@ class CartItem {
   final String? orderId;
   final String? paymentMethod;
   final String? zipCode;
+  final bool? isCancel;
   CartItem(
       {this.paymentMethod,
+      this.isCancel,
+      required this.totalQty,
       this.zipCode,
       this.name,
       this.address,
@@ -229,6 +230,7 @@ class CartItem {
 
   factory CartItem.fromJson(Map<dynamic, dynamic> map) {
     return CartItem(
+        totalQty: map['totalQty'],
         zipCode: map['zipCode'],
         paymentMethod: 'paymentMethod',
         orderId: map['orderId'],
@@ -237,6 +239,7 @@ class CartItem {
         name: map['name'],
         product: map['product'],
         quantity: map['quantity'],
+        isCancel: map['isCancel'] ?? false,
         date: map['date']);
   }
 

@@ -4,13 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/domain/repository/I_order_facade.dart';
 import 'package:ecommerce/domain/repository/i_cart_facade.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../domain/core/failures/api_failures.dart';
 import '../../infrastructure/models/product_model.dart';
-import '../../presentation/views/cart/checkout_page.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';

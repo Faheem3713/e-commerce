@@ -1,10 +1,13 @@
+import 'package:ecommerce/application/payment/payment_cubit.dart';
 import 'package:ecommerce/infrastructure/models/product_model.dart';
 import 'package:ecommerce/presentation/views/cart/checkout_page.dart';
 import 'package:ecommerce/presentation/views/order/order_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/theme/app_color.dart';
 import '../../../core/theme/text_styles.dart';
+import '../../widgets/outlined_button.dart';
 
 class OrderCard extends StatelessWidget {
   final CartItem cartItem;
@@ -14,27 +17,16 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: ((context) => OrderDetailsPage(
-                        orderNumber: cartItem.orderId!,
-                        orderDate: cartItem.date!,
-                        orderStatus: 'Shipping',
-                        shippingName: cartItem.name!,
-                        shippingAddress: cartItem.address!,
-                        shippingState: cartItem.state!,
-                        shippingZipCode: cartItem.zipCode!,
-                        paymentMethod: 'COD',
-                        totalAmount: cartItem.totalPrice,
-                        items: [
-                          OrderItem(
-                              name: cartItem.product.name,
-                              price: cartItem.product.price.toDouble(),
-                              quantity: cartItem.quantity)
-                        ]))));
-      },
+      onTap: cartItem.isCancel ?? false
+          ? null
+          : () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => OrderDetailsPage(
+                            items: cartItem,
+                          ))));
+            },
       child: Container(
         color: AppColor.grey,
         padding: const EdgeInsets.all(5),
@@ -59,26 +51,44 @@ class OrderCard extends StatelessWidget {
               flex: 4,
               child: ListTile(
                 title: Text(cartItem.product.name),
-                subtitle: Text(
-                  '\$${cartItem.product.price.toString()}',
-                  style: CustomStyles.ktitleTextStyle,
-                ),
-                trailing: Column(
+                subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Qty:',
-                      style: CustomStyles.kSubtitleTextStyle,
-                    ),
                     Text(
-                      '${cartItem.quantity}',
+                      '\$${cartItem.product.price.toString()}',
+                      style: CustomStyles.ktitleTextStyle,
                     ),
+                    cartItem.isCancel ?? false
+                        ? _cancelledOrder()
+                        : PopupMenuButton(
+                            itemBuilder: (context) => [
+                              PopupMenuItem(
+                                child: const Text('Cancel order'),
+                                onTap: () {
+                                  context
+                                      .read<PaymentCubit>()
+                                      .cancelOrder(cartItem);
+                                },
+                              )
+                            ],
+                          )
                   ],
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _cancelledOrder() {
+    return Container(
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(color: Colors.red[100]),
+      child: const Text(
+        'Cancelled',
+        style: TextStyle(color: Colors.red),
       ),
     );
   }

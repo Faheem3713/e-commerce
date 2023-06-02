@@ -5,6 +5,7 @@ import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../widgets/show_messsage.dart';
 import 'widgets/wishlist_card.dart';
 
 class MyWishList extends StatefulWidget {
@@ -28,7 +29,10 @@ class _MyWishListState extends State<MyWishList> {
           return state.isLoading
               ? const Center(child: CircularProgressIndicator())
               : state.wishLlist.isEmpty
-                  ? const Center(child: Text('No data'))
+                  ? const Center(
+                      child: ShowMessagePage(
+                          message: 'No orders placed',
+                          icon: Icons.shopping_cart_outlined))
                   : ListView(
                       padding: AppConstants.padding10,
                       children: [

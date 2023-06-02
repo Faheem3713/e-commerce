@@ -1,26 +1,30 @@
+import 'dart:developer';
 import 'package:ecommerce/domain/auth/email_address.dart';
 import 'package:ecommerce/domain/auth/auth_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/domain/auth/i_auth_facade.dart';
 import 'package:ecommerce/domain/auth/password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IAuthFacade)
 class AuthRepository implements IAuthFacade {
   final FirebaseAuth _auth;
+  final DatabaseReference _dbref;
   final GoogleSignIn _googleSignIn;
 
-  AuthRepository(this._auth, this._googleSignIn);
+  AuthRepository(this._auth, this._googleSignIn, this._dbref);
 
   @override
   Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword(
       {required EmailAddress emailAddress, required Password password}) async {
-    final email = emailAddress.getOrCrash();
-    final passWord = password.getOrCrash();
+    final email = emailAddress.getOrCrash().toString();
+    final passWord = password.getOrCrash().toString();
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: passWord);
+
       return right(unit);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password' || e.code == 'invalid-email') {
@@ -28,6 +32,9 @@ class AuthRepository implements IAuthFacade {
       } else {
         return left(const AuthFailure.serverFailure());
       }
+    } catch (e) {
+      log(e.toString());
+      return left(const AuthFailure.serverFailure());
     }
   }
 
@@ -56,8 +63,17 @@ class AuthRepository implements IAuthFacade {
     final email = emailAddress.getOrCrash();
     final passWord = password.getOrCrash();
     try {
+      log('message');
       await _auth.createUserWithEmailAndPassword(
           email: email, password: passWord);
+      await _dbref.child('Ventors').push().set({
+        "name": _auth.currentUser!.email,
+        'email': emailAddress.getOrCrash().toString(),
+        'wallet': 0,
+        'id': _auth.currentUser?.uid,
+        'products': []
+      });
+      log('mm');
       return right(unit);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {

@@ -38,7 +38,6 @@ class CouponRepository implements ICouponFacade {
     try {
       final couponRef = (await _ref.child('coupons').get()).value as Map;
       couponRef.forEach((key, value) async {
-        print(couponCode);
         if (value['coupon'] == couponCode) {
           log('message');
           await _ref.child('coupons/$key').update({'used': true});

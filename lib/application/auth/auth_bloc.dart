@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/domain/auth/email_address.dart';
 import 'package:ecommerce/domain/auth/i_auth_facade.dart';
 import 'package:ecommerce/domain/auth/password.dart';
 import 'package:ecommerce/domain/repository/phone_auth_facade.dart';
-import 'package:ecommerce/presentation/views/auth/phone_auth.dart';
+import 'package:ecommerce/presentation/views/auth/phone/phone_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -25,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         phone: PhoneNumber(event.phone),
         authFailureOrSuccess: none(),
         autoValidate: AutovalidateMode.always)));
+
     on<_PhoneAuth>((event, emit) async {
       emit(state.copyWith(
           isLoading: true, autoValidate: AutovalidateMode.always));
@@ -39,69 +42,83 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       _phoneAuthFacade.sendOTP(phone: event.phone);
     });
 
-    // on<_EmailChanged>((event, emit) {
-    //   emit(state.copyWith(
-    //       email: EmailAddress(event.emailStr), authFailureOrSuccess: none()));
-    // });
+    on<_EmailChanged>((event, emit) {
+      emit(state.copyWith(
+          email: EmailAddress(event.emailStr), authFailureOrSuccess: none()));
+    });
 
-    // on<_PassWordChanged>((event, emit) {
-    //   emit(state.copyWith(
-    //       password: Password(event.passwordStr), authFailureOrSuccess: none()));
-    // });
+    on<_PassWordChanged>((event, emit) {
+      emit(state.copyWith(
+          password: Password(event.passwordStr), authFailureOrSuccess: none()));
+    });
 
-    // on<_SignInWithGoogle>((event, emit) async {
-    //   emit(state.copyWith(isSubmitting: true, authFailureOrSuccess: none()));
+    on<_SignInWithGoogle>((event, emit) async {
+      emit(state.copyWith(isSubmitting: true, authFailureOrSuccess: none()));
 
-    //   final failureOrSuccess = await _authFacade.signInWithGoogle();
+      final failureOrSuccess = await _authFacade.signInWithGoogle();
 
-    //   emit(state.copyWith(authFailureOrSuccess: some(failureOrSuccess)));
-    //   emit(
-    //       state.copyWith(showErrorMessage: true, authFailureOrSuccess: none()));
-    // });
+      emit(state.copyWith(authFailureOrSuccess: some(failureOrSuccess)));
+      emit(
+          state.copyWith(showErrorMessage: true, authFailureOrSuccess: none()));
+    });
 
-    // on<_SignIn>((event, emit) {
-    //   emit(_performActionOnAuthFacadeWithEmailAndPassword(
-    //       _authFacade.signInWithEmailAndPassword));
-    // });
+    on<_SignIn>((event, emit) async {
+      emit(state.copyWith(isLoading: true, authFailureOrSuccess: none()));
+      final signInData = await _authFacade.signInWithEmailAndPassword(
+          emailAddress: EmailAddress(event.email),
+          password: Password(event.password));
 
-    // on<_ToggleAutovalidate>((event, emit) =>
-    //     emit(state.copyWith(showErrorMessage: event.isValidate)));
+      emit(signInData.fold(
+          (l) => state.copyWith(
+              isLoading: false, authFailureOrSuccess: some(left(l))),
+          (r) => state.copyWith(
+              isLoading: false, authFailureOrSuccess: some(right(r)))));
+    });
+
+    on<_Register>((event, emit) async {
+      emit(state.copyWith(isLoading: true, showErrorMessage: false));
+      if (state.email.isValid() && state.password.isValid()) {
+        final registerData = await _authFacade.registerWithEmailAndPassword(
+            emailAddress: EmailAddress(event.email),
+            password: Password(event.password));
+        emit(registerData.fold(
+            (l) => state.copyWith(isLoading: false, showErrorMessage: true),
+            (r) => state.copyWith(
+                isLoading: false,
+                showErrorMessage: false,
+                authFailureOrSuccess: some(right(r)))));
+      }
+    });
   }
-  // on<_Register>((event, emit) async {
-  //   emit(_performActionOnAuthFacadeWithEmailAndPassword(
-  //       _authFacade.registerWithEmailAndPassword));
-  // });
+  _performActionOnAuthFacadeWithEmailAndPassword(
+    Future<Either<AuthFailure, Unit>> Function({
+      required EmailAddress emailAddress,
+      required Password password,
+    }) forwardedCall,
+  ) async* {
+    Either<AuthFailure, Unit>? failureOrSuccess;
 
-  // _performActionOnAuthFacadeWithEmailAndPassword(
-  //   Future<Either<AuthFailure, Unit>> Function({
-  //     required EmailAddress emailAddress,
-  //     required Password password,
-  //   })
-  //       forwardedCall,
-  // ) async* {
-  //   Either<AuthFailure, Unit>? failureOrSuccess;
+    final isEmailValid = state.email.isValid();
+    final isPasswordValid = state.password.isValid();
 
-  //   final isEmailValid = state.email.isValid();
-  //   final isPasswordValid = state.password.isValid();
+    if (isEmailValid && isPasswordValid) {
+      yield state.copyWith(
+        autoValidate: AutovalidateMode.always,
+        isSubmitting: true,
+        authFailureOrSuccess: none(),
+      );
 
-  //   if (isEmailValid && isPasswordValid) {
-  //     yield state.copyWith(
-  //       autoValidate: AutovalidateMode.always,
-  //       isSubmitting: true,
-  //       authFailureOrSuccess: none(),
-  //     );
+      failureOrSuccess = await forwardedCall(
+        emailAddress: state.email,
+        password: state.password,
+      );
+    }
 
-  //     failureOrSuccess = await forwardedCall(
-  //       emailAddress: state.email,
-  //       password: state.password,
-  //     );
-  //   }
-
-  //   yield state.copyWith(
-  //     autoValidate: AutovalidateMode.always,
-  //     isSubmitting: false,
-  //     showErrorMessage: true,
-  //     authFailureOrSuccess: optionOf(failureOrSuccess),
-  //   );
-  // }
+    yield state.copyWith(
+      autoValidate: AutovalidateMode.always,
+      isSubmitting: false,
+      showErrorMessage: true,
+      authFailureOrSuccess: optionOf(failureOrSuccess),
+    );
+  }
 }

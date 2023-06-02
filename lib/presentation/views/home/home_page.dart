@@ -1,10 +1,5 @@
-import 'dart:developer';
-
 import 'package:ecommerce/presentation/core/constants/constants.dart';
-import 'package:ecommerce/presentation/views/product/product.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../application/product/product_bloc.dart';
 import 'widgets/home_card.dart';
 

@@ -1,7 +1,6 @@
 import 'package:ecommerce/domain/core/failures/value_failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/domain/core/value_objects.dart';
-import 'package:flutter/material.dart';
 
 class PhoneNumber extends ValueObject {
   @override
@@ -11,7 +10,7 @@ class PhoneNumber extends ValueObject {
     return PhoneNumber._(validatePhone(input));
   }
 
-  PhoneNumber._(this.value);
+  const PhoneNumber._(this.value);
 }
 
 Either<ValueFailures<String>, String> validatePhone(String input) {

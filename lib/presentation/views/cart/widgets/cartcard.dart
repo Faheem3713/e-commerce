@@ -1,20 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ecommerce/application/checkData/check_data_cubit.dart';
 import 'package:ecommerce/presentation/views/cart/checkout_page.dart';
-import 'package:ecommerce/presentation/views/widgets/outlined_button.dart';
 import 'package:flutter/material.dart';
-
 import 'package:ecommerce/application/cart/cart_bloc.dart';
 import 'package:ecommerce/infrastructure/models/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../core/theme/app_color.dart';
 import '../../../core/theme/text_styles.dart';
 
 class CartCard extends StatelessWidget {
   final Products product;
 
-  Set<CartItem> orders;
+  final Set<CartItem> orders;
   final int quaitity;
   CartCard({
     Key? key,
@@ -23,7 +20,7 @@ class CartCard extends StatelessWidget {
     required this.quaitity,
   }) : super(key: key);
   final ValueNotifier<int> _quantityCount = ValueNotifier(1);
-  CartBloc? blocVal;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,12 +44,6 @@ class CartCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                CustomOutlinedbutton(
-                    text: 'Remove',
-                    onPressed: () {
-                      context.read<CartBloc>().add(
-                          CartEvent.removeCart(option: 'cart', id: product.id));
-                    })
               ],
             ),
           ),
@@ -67,6 +58,7 @@ class CartCard extends StatelessWidget {
             ),
           ),
           Expanded(
+            flex: 1,
             child: Column(
               children: [
                 IconButton(
@@ -74,7 +66,7 @@ class CartCard extends StatelessWidget {
                     if (_quantityCount.value < quaitity) {
                       _quantityCount.value++;
                       totalPrice.value += product.price;
-                      findQty();
+                      findQty(context);
                     }
                     context
                         .read<CheckDataCubit>()
@@ -89,10 +81,10 @@ class CartCard extends StatelessWidget {
                     }),
                 IconButton(
                     onPressed: () {
-                      if (_quantityCount.value > 1) {
+                      if (_quantityCount.value > 0) {
                         _quantityCount.value--;
                         totalPrice.value -= product.price;
-                        findQty();
+                        findQty(context);
                         context
                             .read<CheckDataCubit>()
                             .findTotal(product.price, false);
@@ -107,11 +99,16 @@ class CartCard extends StatelessWidget {
     );
   }
 
-  void findQty() {
+  void findQty(BuildContext context) {
     orders.removeWhere((element) => element.product.id == product.id);
     _quantityCount.value > 0
-        ? orders.add(CartItem(product: product, quantity: _quantityCount.value))
-        : {};
+        ? orders.add(CartItem(
+            product: product,
+            quantity: _quantityCount.value,
+            totalQty: product.quantity))
+        : context
+            .read<CartBloc>()
+            .add(CartEvent.removeCart(option: 'cart', id: product.id));
   }
 }
 

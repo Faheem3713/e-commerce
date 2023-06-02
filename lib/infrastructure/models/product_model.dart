@@ -9,9 +9,11 @@ class Products {
   List sizes;
   int discount;
   int quantity;
+  String ventor;
 
   Products(
       {required this.name,
+      required this.ventor,
       required this.quantity,
       required this.discount,
       required this.sizes,
@@ -24,6 +26,7 @@ class Products {
 
   factory Products.fromJson(Map<dynamic, dynamic> map) {
     return Products(
+        ventor: map['ventor'] ?? '',
         quantity: map['quantity'],
         discount: map['discount'],
         sizes: map['size'] as List,

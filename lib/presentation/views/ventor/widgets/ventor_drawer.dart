@@ -1,12 +1,14 @@
-import 'package:ecommerce/presentation/core/theme/app_color.dart';
-import 'package:ecommerce/presentation/core/theme/text_styles.dart';
-import 'package:ecommerce/presentation/views/auth/phone/phone_auth.dart';
-import 'package:ecommerce/presentation/views/ventor/coupon.dart';
+import 'package:ecommerce/presentation/views/auth/google/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
+import '../../../core/theme/app_color.dart';
+import '../../../core/theme/text_styles.dart';
+import '../admin_page.dart';
+import '../coupon.dart';
+
+class VentorDrawer extends StatelessWidget {
+  const VentorDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,14 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.person),
+            title: const Text(' Add product '),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (ctx) => ProductAddPage()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.person),
             title: const Text(' Coupons '),
             onTap: () {
               Navigator.push(
@@ -44,27 +54,6 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.production_quantity_limits),
-            title: const Text(' Products '),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.star),
-            title: const Text(' Favourites '),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.edit),
-            title: const Text(' Profile '),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('LogOut'),
             onTap: () {
@@ -72,7 +61,7 @@ class DrawerWidget extends StatelessWidget {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PhoneAuth(),
+                    builder: (context) => SignIn(),
                   ),
                   (route) => false);
             },

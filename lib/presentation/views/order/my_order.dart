@@ -1,6 +1,6 @@
-import 'package:ecommerce/application/cart/cart_bloc.dart';
 import 'package:ecommerce/application/payment/payment_cubit.dart';
 import 'package:ecommerce/presentation/core/constants/constants.dart';
+import 'package:ecommerce/presentation/views/widgets/show_messsage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'widgets/order_card.dart';
@@ -15,13 +15,15 @@ class MyOrderPage extends StatelessWidget {
     });
     return Scaffold(body: BlocBuilder<PaymentCubit, PaymentState>(
       builder: (context, state) {
-        print(state.orders.length);
         return state.isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : state.orders.isEmpty
-                ? const Center(child: Text('No data'))
+                ? const Center(
+                    child: ShowMessagePage(
+                        message: 'No orders placed',
+                        icon: Icons.shopping_cart_outlined))
                 : state.orders.isNotEmpty
                     ? ListView(
                         children: [
@@ -38,8 +40,8 @@ class MyOrderPage extends StatelessWidget {
                               itemCount: state.orders.length)
                         ],
                       )
-                    : Text('error');
-        ;
+                    : const ShowMessagePage(
+                        message: 'Network error', icon: Icons.wifi_off);
       },
     ));
   }

@@ -4,8 +4,14 @@ part of 'ventor_bloc.dart';
 class VentorState with _$VentorState {
   const factory VentorState(
       {required bool isLoading,
+      required List<Products> products,
       required bool isError,
+      required Option<Either<MainFailure, Unit>> successOrError,
       required List<Coupon> coupon}) = _VentorState;
-  factory VentorState.initial() =>
-      const VentorState(isLoading: false, isError: false, coupon: []);
+  factory VentorState.initial() => VentorState(
+      successOrError: none(),
+      isLoading: false,
+      isError: false,
+      coupon: [],
+      products: []);
 }

@@ -1,12 +1,10 @@
 import 'package:ecommerce/application/auth/auth_bloc.dart';
-import 'package:ecommerce/domain/auth/i_auth_facade.dart';
-import 'package:ecommerce/domain/repository/phone_auth_facade.dart';
 import 'package:ecommerce/presentation/core/constants/constants.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../widgets/button_widget.dart';
-import '../widgets/textfield.dart';
+import '../../widgets/button_widget.dart';
+import '../../widgets/textfield.dart';
 
 class PhoneAuth extends StatelessWidget {
   PhoneAuth({Key? key}) : super(key: key);
@@ -44,7 +42,9 @@ class PhoneAuth extends StatelessWidget {
                       return context.read<AuthBloc>().state.phone.value.fold(
                           (l) => l.maybeMap(
                                 invalidPhone: (_) => 'Invalid phone',
-                                orElse: () {},
+                                orElse: () {
+                                  return null;
+                                },
                               ),
                           (_) => null);
                     },

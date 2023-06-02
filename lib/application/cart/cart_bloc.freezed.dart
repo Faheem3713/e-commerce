@@ -16,13 +16,13 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CartEvent {
-  String get option => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Products product, String option) addToCart,
     required TResult Function(String option) getCart,
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
+    required TResult Function(String id) cancelOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,6 +31,7 @@ mixin _$CartEvent {
     TResult? Function(String option)? getCart,
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
+    TResult? Function(String id)? cancelOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +40,7 @@ mixin _$CartEvent {
     TResult Function(String option)? getCart,
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
+    TResult Function(String id)? cancelOrder,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +50,7 @@ mixin _$CartEvent {
     required TResult Function(_GetCart value) getCart,
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
+    required TResult Function(_CancelOrder value) cancelOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +59,7 @@ mixin _$CartEvent {
     TResult? Function(_GetCart value)? getCart,
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
+    TResult? Function(_CancelOrder value)? cancelOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,12 +68,9 @@ mixin _$CartEvent {
     TResult Function(_GetCart value)? getCart,
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
+    TResult Function(_CancelOrder value)? cancelOrder,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $CartEventCopyWith<CartEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -77,8 +78,6 @@ mixin _$CartEvent {
 abstract class $CartEventCopyWith<$Res> {
   factory $CartEventCopyWith(CartEvent value, $Res Function(CartEvent) then) =
       _$CartEventCopyWithImpl<$Res, CartEvent>;
-  @useResult
-  $Res call({String option});
 }
 
 /// @nodoc
@@ -90,27 +89,13 @@ class _$CartEventCopyWithImpl<$Res, $Val extends CartEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? option = null,
-  }) {
-    return _then(_value.copyWith(
-      option: null == option
-          ? _value.option
-          : option // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_AddToCartCopyWith<$Res> implements $CartEventCopyWith<$Res> {
+abstract class _$$_AddToCartCopyWith<$Res> {
   factory _$$_AddToCartCopyWith(
           _$_AddToCart value, $Res Function(_$_AddToCart) then) =
       __$$_AddToCartCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({Products product, String option});
 }
@@ -182,6 +167,7 @@ class _$_AddToCart implements _AddToCart {
     required TResult Function(String option) getCart,
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
+    required TResult Function(String id) cancelOrder,
   }) {
     return addToCart(product, option);
   }
@@ -193,6 +179,7 @@ class _$_AddToCart implements _AddToCart {
     TResult? Function(String option)? getCart,
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
+    TResult? Function(String id)? cancelOrder,
   }) {
     return addToCart?.call(product, option);
   }
@@ -204,6 +191,7 @@ class _$_AddToCart implements _AddToCart {
     TResult Function(String option)? getCart,
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
+    TResult Function(String id)? cancelOrder,
     required TResult orElse(),
   }) {
     if (addToCart != null) {
@@ -219,6 +207,7 @@ class _$_AddToCart implements _AddToCart {
     required TResult Function(_GetCart value) getCart,
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
+    required TResult Function(_CancelOrder value) cancelOrder,
   }) {
     return addToCart(this);
   }
@@ -230,6 +219,7 @@ class _$_AddToCart implements _AddToCart {
     TResult? Function(_GetCart value)? getCart,
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
+    TResult? Function(_CancelOrder value)? cancelOrder,
   }) {
     return addToCart?.call(this);
   }
@@ -241,6 +231,7 @@ class _$_AddToCart implements _AddToCart {
     TResult Function(_GetCart value)? getCart,
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
+    TResult Function(_CancelOrder value)? cancelOrder,
     required TResult orElse(),
   }) {
     if (addToCart != null) {
@@ -256,20 +247,17 @@ abstract class _AddToCart implements CartEvent {
       required final String option}) = _$_AddToCart;
 
   Products get product;
-  @override
   String get option;
-  @override
   @JsonKey(ignore: true)
   _$$_AddToCartCopyWith<_$_AddToCart> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_GetCartCopyWith<$Res> implements $CartEventCopyWith<$Res> {
+abstract class _$$_GetCartCopyWith<$Res> {
   factory _$$_GetCartCopyWith(
           _$_GetCart value, $Res Function(_$_GetCart) then) =
       __$$_GetCartCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String option});
 }
@@ -332,6 +320,7 @@ class _$_GetCart implements _GetCart {
     required TResult Function(String option) getCart,
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
+    required TResult Function(String id) cancelOrder,
   }) {
     return getCart(option);
   }
@@ -343,6 +332,7 @@ class _$_GetCart implements _GetCart {
     TResult? Function(String option)? getCart,
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
+    TResult? Function(String id)? cancelOrder,
   }) {
     return getCart?.call(option);
   }
@@ -354,6 +344,7 @@ class _$_GetCart implements _GetCart {
     TResult Function(String option)? getCart,
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
+    TResult Function(String id)? cancelOrder,
     required TResult orElse(),
   }) {
     if (getCart != null) {
@@ -369,6 +360,7 @@ class _$_GetCart implements _GetCart {
     required TResult Function(_GetCart value) getCart,
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
+    required TResult Function(_CancelOrder value) cancelOrder,
   }) {
     return getCart(this);
   }
@@ -380,6 +372,7 @@ class _$_GetCart implements _GetCart {
     TResult? Function(_GetCart value)? getCart,
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
+    TResult? Function(_CancelOrder value)? cancelOrder,
   }) {
     return getCart?.call(this);
   }
@@ -391,6 +384,7 @@ class _$_GetCart implements _GetCart {
     TResult Function(_GetCart value)? getCart,
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
+    TResult Function(_CancelOrder value)? cancelOrder,
     required TResult orElse(),
   }) {
     if (getCart != null) {
@@ -403,21 +397,17 @@ class _$_GetCart implements _GetCart {
 abstract class _GetCart implements CartEvent {
   const factory _GetCart({required final String option}) = _$_GetCart;
 
-  @override
   String get option;
-  @override
   @JsonKey(ignore: true)
   _$$_GetCartCopyWith<_$_GetCart> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_RemoveCartCopyWith<$Res>
-    implements $CartEventCopyWith<$Res> {
+abstract class _$$_RemoveCartCopyWith<$Res> {
   factory _$$_RemoveCartCopyWith(
           _$_RemoveCart value, $Res Function(_$_RemoveCart) then) =
       __$$_RemoveCartCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String option, String id});
 }
@@ -489,6 +479,7 @@ class _$_RemoveCart implements _RemoveCart {
     required TResult Function(String option) getCart,
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
+    required TResult Function(String id) cancelOrder,
   }) {
     return removeCart(option, id);
   }
@@ -500,6 +491,7 @@ class _$_RemoveCart implements _RemoveCart {
     TResult? Function(String option)? getCart,
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
+    TResult? Function(String id)? cancelOrder,
   }) {
     return removeCart?.call(option, id);
   }
@@ -511,6 +503,7 @@ class _$_RemoveCart implements _RemoveCart {
     TResult Function(String option)? getCart,
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
+    TResult Function(String id)? cancelOrder,
     required TResult orElse(),
   }) {
     if (removeCart != null) {
@@ -526,6 +519,7 @@ class _$_RemoveCart implements _RemoveCart {
     required TResult Function(_GetCart value) getCart,
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
+    required TResult Function(_CancelOrder value) cancelOrder,
   }) {
     return removeCart(this);
   }
@@ -537,6 +531,7 @@ class _$_RemoveCart implements _RemoveCart {
     TResult? Function(_GetCart value)? getCart,
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
+    TResult? Function(_CancelOrder value)? cancelOrder,
   }) {
     return removeCart?.call(this);
   }
@@ -548,6 +543,7 @@ class _$_RemoveCart implements _RemoveCart {
     TResult Function(_GetCart value)? getCart,
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
+    TResult Function(_CancelOrder value)? cancelOrder,
     required TResult orElse(),
   }) {
     if (removeCart != null) {
@@ -561,22 +557,18 @@ abstract class _RemoveCart implements CartEvent {
   const factory _RemoveCart(
       {required final String option, required final String id}) = _$_RemoveCart;
 
-  @override
   String get option;
   String get id;
-  @override
   @JsonKey(ignore: true)
   _$$_RemoveCartCopyWith<_$_RemoveCart> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_GetWishListCopyWith<$Res>
-    implements $CartEventCopyWith<$Res> {
+abstract class _$$_GetWishListCopyWith<$Res> {
   factory _$$_GetWishListCopyWith(
           _$_GetWishList value, $Res Function(_$_GetWishList) then) =
       __$$_GetWishListCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String option});
 }
@@ -640,6 +632,7 @@ class _$_GetWishList implements _GetWishList {
     required TResult Function(String option) getCart,
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
+    required TResult Function(String id) cancelOrder,
   }) {
     return getWishList(option);
   }
@@ -651,6 +644,7 @@ class _$_GetWishList implements _GetWishList {
     TResult? Function(String option)? getCart,
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
+    TResult? Function(String id)? cancelOrder,
   }) {
     return getWishList?.call(option);
   }
@@ -662,6 +656,7 @@ class _$_GetWishList implements _GetWishList {
     TResult Function(String option)? getCart,
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
+    TResult Function(String id)? cancelOrder,
     required TResult orElse(),
   }) {
     if (getWishList != null) {
@@ -677,6 +672,7 @@ class _$_GetWishList implements _GetWishList {
     required TResult Function(_GetCart value) getCart,
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
+    required TResult Function(_CancelOrder value) cancelOrder,
   }) {
     return getWishList(this);
   }
@@ -688,6 +684,7 @@ class _$_GetWishList implements _GetWishList {
     TResult? Function(_GetCart value)? getCart,
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
+    TResult? Function(_CancelOrder value)? cancelOrder,
   }) {
     return getWishList?.call(this);
   }
@@ -699,6 +696,7 @@ class _$_GetWishList implements _GetWishList {
     TResult Function(_GetCart value)? getCart,
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
+    TResult Function(_CancelOrder value)? cancelOrder,
     required TResult orElse(),
   }) {
     if (getWishList != null) {
@@ -711,11 +709,160 @@ class _$_GetWishList implements _GetWishList {
 abstract class _GetWishList implements CartEvent {
   const factory _GetWishList({required final String option}) = _$_GetWishList;
 
-  @override
   String get option;
-  @override
   @JsonKey(ignore: true)
   _$$_GetWishListCopyWith<_$_GetWishList> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_CancelOrderCopyWith<$Res> {
+  factory _$$_CancelOrderCopyWith(
+          _$_CancelOrder value, $Res Function(_$_CancelOrder) then) =
+      __$$_CancelOrderCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$_CancelOrderCopyWithImpl<$Res>
+    extends _$CartEventCopyWithImpl<$Res, _$_CancelOrder>
+    implements _$$_CancelOrderCopyWith<$Res> {
+  __$$_CancelOrderCopyWithImpl(
+      _$_CancelOrder _value, $Res Function(_$_CancelOrder) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_CancelOrder(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CancelOrder implements _CancelOrder {
+  const _$_CancelOrder(this.id);
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'CartEvent.cancelOrder(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CancelOrder &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CancelOrderCopyWith<_$_CancelOrder> get copyWith =>
+      __$$_CancelOrderCopyWithImpl<_$_CancelOrder>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Products product, String option) addToCart,
+    required TResult Function(String option) getCart,
+    required TResult Function(String option, String id) removeCart,
+    required TResult Function(String option) getWishList,
+    required TResult Function(String id) cancelOrder,
+  }) {
+    return cancelOrder(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Products product, String option)? addToCart,
+    TResult? Function(String option)? getCart,
+    TResult? Function(String option, String id)? removeCart,
+    TResult? Function(String option)? getWishList,
+    TResult? Function(String id)? cancelOrder,
+  }) {
+    return cancelOrder?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Products product, String option)? addToCart,
+    TResult Function(String option)? getCart,
+    TResult Function(String option, String id)? removeCart,
+    TResult Function(String option)? getWishList,
+    TResult Function(String id)? cancelOrder,
+    required TResult orElse(),
+  }) {
+    if (cancelOrder != null) {
+      return cancelOrder(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddToCart value) addToCart,
+    required TResult Function(_GetCart value) getCart,
+    required TResult Function(_RemoveCart value) removeCart,
+    required TResult Function(_GetWishList value) getWishList,
+    required TResult Function(_CancelOrder value) cancelOrder,
+  }) {
+    return cancelOrder(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddToCart value)? addToCart,
+    TResult? Function(_GetCart value)? getCart,
+    TResult? Function(_RemoveCart value)? removeCart,
+    TResult? Function(_GetWishList value)? getWishList,
+    TResult? Function(_CancelOrder value)? cancelOrder,
+  }) {
+    return cancelOrder?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddToCart value)? addToCart,
+    TResult Function(_GetCart value)? getCart,
+    TResult Function(_RemoveCart value)? removeCart,
+    TResult Function(_GetWishList value)? getWishList,
+    TResult Function(_CancelOrder value)? cancelOrder,
+    required TResult orElse(),
+  }) {
+    if (cancelOrder != null) {
+      return cancelOrder(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CancelOrder implements CartEvent {
+  const factory _CancelOrder(final String id) = _$_CancelOrder;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$_CancelOrderCopyWith<_$_CancelOrder> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

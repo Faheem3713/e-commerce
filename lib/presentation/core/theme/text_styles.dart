@@ -10,4 +10,10 @@ class CustomStyles {
   );
   static const kSubtitleTextStyle = TextStyle(
       fontSize: 13, color: AppColor.unselectedColor, fontFamily: 'Montserrat');
+  static const kHeaderText = TextStyle(
+    letterSpacing: -1,
+    fontSize: 20,
+    color: Color.fromARGB(255, 151, 150, 150),
+    fontFamily: 'Montserrat',
+  );
 }

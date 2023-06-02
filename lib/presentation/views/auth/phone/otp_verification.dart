@@ -1,16 +1,15 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
-import 'package:ecommerce/presentation/views/auth/sign_up.dart';
+import 'package:ecommerce/presentation/views/auth/phone/user_registration.dart';
 import 'package:ecommerce/presentation/views/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../application/auth/auth_bloc.dart';
-import '../widgets/button_widget.dart';
-import '../widgets/textfield.dart';
+import '../../../../application/auth/auth_bloc.dart';
+import '../../widgets/button_widget.dart';
+import '../../widgets/textfield.dart';
 
 class OtpVerification extends StatelessWidget {
   OtpVerification({
@@ -92,13 +91,13 @@ class OtpVerification extends StatelessWidget {
             Center(
               child: ButtonWidget(
                 width: 140,
-                onPressed: () async {
+                onPressed: () {
                   final auth = FirebaseAuth.instance;
                   PhoneAuthCredential credential = PhoneAuthProvider.credential(
                       verificationId: verificationId,
                       smsCode: _otpController.text);
                   try {
-                    await auth.signInWithCredential(credential);
+                    auth.signInWithCredential(credential);
                     checkNumberIsRegistered(
                         number: phoneNumber, context: context);
                   } catch (e) {
@@ -138,7 +137,7 @@ class OtpVerification extends StatelessWidget {
           }
         }
         Navigator.push(
-            context, MaterialPageRoute(builder: (ctx) => SignUpPage()));
+            context, MaterialPageRoute(builder: (ctx) => UserRegistration()));
       });
     } catch (e) {
       return false;

@@ -1,5 +1,7 @@
 import 'package:ecommerce/presentation/core/constants/constants.dart';
-import 'package:ecommerce/presentation/views/auth/otp_verification.dart';
+import 'package:ecommerce/presentation/views/auth/phone/otp_verification.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/textfield.dart';
@@ -26,7 +28,7 @@ class ForgotPassword extends StatelessWidget {
             ),
             CustomTextField(
               controller: _nameController,
-              placeholderText: 'Enter phone number',
+              placeholderText: 'Enter your email',
               prefixIcon: Icons.person,
             ),
             AppConstants.height10,
@@ -35,14 +37,16 @@ class ForgotPassword extends StatelessWidget {
               child: ButtonWidget(
                 width: 140,
                 onPressed: () {
+                  if (_nameController.text.isNotEmpty) {
+                    FirebaseAuth.instance
+                        .sendPasswordResetEmail(email: _nameController.text);
+                  }
                   // Navigator.push(context,
                   //     MaterialPageRoute(builder: (ctx) => OtpVerification()));
                 },
                 text: 'CONTINUE',
               ),
             ),
-            const AuthTextButton(
-                text: "Already have an account", buttonText: 'Sign In'),
             AppConstants.height50
           ],
         ),

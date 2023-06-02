@@ -16,7 +16,7 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: 46,
+      height: 50,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -26,7 +26,10 @@ class ButtonWidget extends StatelessWidget {
         child: Text(
           text,
           style: const TextStyle(
-              fontSize: 18, color: AppColor.white, fontWeight: FontWeight.w300),
+              fontSize: 20,
+              color: AppColor.white,
+              fontWeight: FontWeight.w500,
+              letterSpacing: -1),
         ),
       ),
     );

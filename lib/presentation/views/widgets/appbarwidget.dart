@@ -3,6 +3,7 @@ import 'package:ecommerce/presentation/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/product/product_bloc.dart';
 import '../cart/cart.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
@@ -24,15 +25,23 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     return AppBar(
       backgroundColor: AppColor.primaryColor,
       title: isSearch
-          ? TextFormField(
-              decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isSearch = !isSearch;
-                        });
-                      },
-                      icon: const Icon(Icons.close))),
+          ? Autocomplete(
+              onSelected: (option) {
+                context
+                    .read<ProductBloc>()
+                    .add(ProductEvent.search(searchText: option));
+              },
+              optionsBuilder: (textEditingValue) {
+                return context
+                    .read<ProductBloc>()
+                    .state
+                    .products
+                    .map((e) => e.name)
+                    .toList()
+                    .where(
+                        (element) => element.startsWith(textEditingValue.text))
+                    .toList();
+              },
             )
           : Image.asset("assets/images/ezgif 2.png"),
       actions: widget.isIcon && !isSearch
@@ -47,7 +56,16 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                 },
               )
             ]
-          : [],
+          : [
+              IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  setState(() {
+                    isSearch = !isSearch;
+                  });
+                },
+              )
+            ],
     );
   }
 }

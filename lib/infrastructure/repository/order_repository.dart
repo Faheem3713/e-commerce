@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/domain/core/failures/api_failures.dart';
 import 'package:ecommerce/domain/repository/product_facade.dart';
-import 'package:ecommerce/infrastructure/models/product_model.dart';
 import 'package:ecommerce/presentation/views/cart/checkout_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -47,6 +46,8 @@ class OrderRepository implements IOrderFacade {
               (failure) => null,
               (products) {
                 orderProducts.add(CartItem(
+                    isCancel: value['isCancel'],
+                    totalQty: value['totalQty'],
                     zipCode: value['zipCode'],
                     paymentMethod: value['paymentMethod'],
                     orderId: value['orderId'],
@@ -93,16 +94,17 @@ class OrderRepository implements IOrderFacade {
         final phoneNo = userData?['phoneNo']?.toString();
 
         if (phoneNo == currentUser.phoneNumber) {
-          final orders = userData?['orders'] as List<dynamic>? ?? [];
-          orders.addAll(products);
           final dateNow = DateFormat('d-MM-y').format(DateTime.now());
           for (var e in products) {
-            final key =
-                _databaseReference.child('Users/${entry.key}/orders').push();
-
-            await key.set({
+            await _databaseReference
+                .child('Users/${entry.key}/orders')
+                .update(({e.product.id: ''}));
+            await _databaseReference
+                .child('Users/${entry.key}/orders/${e.product.id}')
+                .update({
+              'totalQty': e.totalQty,
               'zipCode': e.zipCode,
-              'orderId': key.key,
+              'orderId': e.product.id,
               'paymentMethod': e.paymentMethod,
               'name': e.name,
               'state': e.state,
@@ -111,6 +113,10 @@ class OrderRepository implements IOrderFacade {
               'quantity': e.quantity,
               'date': dateNow
             }).whenComplete(() => log('added'));
+            await _databaseReference
+                .child('Products/${e.product.id}')
+                .update({'quantity': e.totalQty - e.quantity});
+            paymentSettlemnt(e.product.ventor, e.product.price.toDouble());
           }
         }
       }
@@ -123,30 +129,75 @@ class OrderRepository implements IOrderFacade {
       return left(const MainFailure.serverFailure());
     }
   }
+
+  paymentSettlemnt(String ventor, double productPrice) async {
+    await _databaseReference.child('Ventors').once().then((values) async {
+      final ventorData = values.snapshot.value as Map;
+      ventorData.forEach((key, value) async {
+        if (value['email'] == ventor) {
+          final moneyInWallet = value['wallet'] ?? 0;
+          await _databaseReference
+              .child('Ventors/$key')
+              .update({'wallet': productPrice + moneyInWallet});
+        }
+      });
+    });
+    double amount = productPrice * 3 / 100;
+    await _databaseReference.child('Admin').set({'wallet': amount});
+  }
+
+  @override
+  Future<Either<MainFailure, List<CartItem>>> orderCancellation(
+      CartItem cartItem) async {
+    try {
+      final currentUser = _auth.currentUser;
+      if (currentUser == null) {
+        return left(const MainFailure.serverFailure());
+      }
+
+      await _databaseReference.child('Users').once().then((values) {
+        final data = values.snapshot.value as Map;
+        data.forEach((key, value) {
+          if (value['phoneNo'] == _auth.currentUser!.phoneNumber) {
+            _databaseReference
+                .child('Users/$key/orders/${cartItem.product.id}')
+                .update({'isCancel': true});
+          }
+        });
+      });
+      settleCancellation(cartItem);
+      List<CartItem> orderProducts = (await getOrders()).getOrElse(() => []);
+      return right(orderProducts);
+    } on SocketException catch (_) {
+      return left(const MainFailure.serverFailure());
+    } catch (e) {
+      log(e.toString());
+      return left(const MainFailure.clietFailure());
+    }
+  }
+
+  settleCancellation(CartItem cartItem) {
+    _databaseReference.child('Ventors').once().then((value) {
+      (value.snapshot.value as Map).forEach((key, value) {
+        print(cartItem.product.ventor);
+        if (value['email'] == cartItem.product.ventor) {
+          final amount = value['wallet'];
+          _databaseReference
+              .child('Ventors/$key')
+              .update({'wallet': amount - 300});
+        }
+      });
+    });
+
+    _databaseReference.child('Users').once().then((value) {
+      (value.snapshot.value as Map).forEach((key, value) {
+        if (value['phoneNo'] == _auth.currentUser?.phoneNumber) {
+          final amount = value['wallet'];
+          _databaseReference
+              .child('Users/$key')
+              .update({'wallet': amount + 40});
+        }
+      });
+    });
+  }
 }
-
-// class CartItem {
-//   final Products product;
-//   final int quantity;
-//   final String date;
-//   final String name;
-//   final String address;
-//   final String state;
-//   CartItem(
-//       {required this.name,
-//       required this.address,
-//       required this.state,
-//       required this.product,
-//       required this.quantity,
-//       required this.date});
-
-//   factory CartItem.fromJson(Map<dynamic, dynamic> map) {
-//     return CartItem(
-//         address: map['address'],
-//         state: map['state'],
-//         name: map['name'],
-//         product: map['product'],
-//         quantity: map['quantity'],
-//         date: map['date']);
-//   }
-// }

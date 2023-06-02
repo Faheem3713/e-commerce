@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:ecommerce/domain/core/failures/api_failures.dart';
 import 'package:ecommerce/domain/repository/I_order_facade.dart';
-import 'package:ecommerce/domain/repository/i_cart_facade.dart';
 import 'package:ecommerce/domain/repository/i_coupon_facade.dart';
-import 'package:ecommerce/infrastructure/repository/razorpay_integration.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -43,7 +42,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
-  void placeOrder(Cart cart, String coupon) async {
+  Future<void> placeOrder(Cart cart, String coupon) async {
     await orderFacade.placeOrder(products: cart.items);
 
     couponFacade.deleteCoupon(coupon);
@@ -53,6 +52,16 @@ class PaymentCubit extends Cubit<PaymentState> {
   void getOrders() async {
     emit(state.copyWith(isLoading: true));
     final orderData = await orderFacade.getOrders();
+    emit(orderData.fold(
+        (l) => PaymentState(
+            isErrorOrSuccess: some(true), isLoading: false, orders: []),
+        (r) => PaymentState(
+            isErrorOrSuccess: none(), isLoading: false, orders: r)));
+  }
+
+  void cancelOrder(CartItem id) async {
+    emit(state.copyWith(isLoading: true));
+    final orderData = await orderFacade.orderCancellation(id);
     emit(orderData.fold(
         (l) => PaymentState(
             isErrorOrSuccess: some(true), isLoading: false, orders: []),
@@ -74,5 +83,41 @@ class PaymentCubit extends Cubit<PaymentState> {
     Fluttertoast.showToast(msg: 'Payment FAILED');
   }
 
+  void getProfiele() async {
+    UserModel? data;
+    emit(state.copyWith(isLoading: true));
+    final user = FirebaseAuth.instance.currentUser?.phoneNumber;
+    final ref = FirebaseDatabase.instance.ref();
+    await ref.child('Users').once().then((value) {
+      (value.snapshot.value as Map).forEach((key, values) async {
+        if (values['phoneNo'] == user) {
+          data = UserModel.fromJson(values);
+        }
+      });
+    });
+
+    emit(state.copyWith(user: data, isLoading: false));
+  }
+
   void _handleExternalWallet(ExternalWalletResponse response) {}
+}
+
+class UserModel {
+  final String name, address, zip, phoneNo, email;
+
+  UserModel(
+      {required this.phoneNo,
+      required this.email,
+      required this.name,
+      required this.address,
+      required this.zip});
+
+  factory UserModel.fromJson(Map map) {
+    return UserModel(
+        email: map['email'],
+        name: map['name'] ?? '',
+        address: map['address'] ?? '',
+        zip: map['zip'] ?? '',
+        phoneNo: map['phoneNo'] ?? '');
+  }
 }

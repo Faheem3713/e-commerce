@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PaymentState {
   Option<bool> get isErrorOrSuccess => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  UserModel? get user => throw _privateConstructorUsedError;
   List<CartItem> get orders => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -32,7 +33,10 @@ abstract class $PaymentStateCopyWith<$Res> {
       _$PaymentStateCopyWithImpl<$Res, PaymentState>;
   @useResult
   $Res call(
-      {Option<bool> isErrorOrSuccess, bool isLoading, List<CartItem> orders});
+      {Option<bool> isErrorOrSuccess,
+      bool isLoading,
+      UserModel? user,
+      List<CartItem> orders});
 }
 
 /// @nodoc
@@ -50,6 +54,7 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
   $Res call({
     Object? isErrorOrSuccess = null,
     Object? isLoading = null,
+    Object? user = freezed,
     Object? orders = null,
   }) {
     return _then(_value.copyWith(
@@ -61,6 +66,10 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
       orders: null == orders
           ? _value.orders
           : orders // ignore: cast_nullable_to_non_nullable
@@ -78,7 +87,10 @@ abstract class _$$_InitialCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Option<bool> isErrorOrSuccess, bool isLoading, List<CartItem> orders});
+      {Option<bool> isErrorOrSuccess,
+      bool isLoading,
+      UserModel? user,
+      List<CartItem> orders});
 }
 
 /// @nodoc
@@ -93,6 +105,7 @@ class __$$_InitialCopyWithImpl<$Res>
   $Res call({
     Object? isErrorOrSuccess = null,
     Object? isLoading = null,
+    Object? user = freezed,
     Object? orders = null,
   }) {
     return _then(_$_Initial(
@@ -104,6 +117,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
       orders: null == orders
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
@@ -118,6 +135,7 @@ class _$_Initial implements _Initial {
   const _$_Initial(
       {required this.isErrorOrSuccess,
       required this.isLoading,
+      this.user,
       required final List<CartItem> orders})
       : _orders = orders;
 
@@ -125,6 +143,8 @@ class _$_Initial implements _Initial {
   final Option<bool> isErrorOrSuccess;
   @override
   final bool isLoading;
+  @override
+  final UserModel? user;
   final List<CartItem> _orders;
   @override
   List<CartItem> get orders {
@@ -135,7 +155,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'PaymentState(isErrorOrSuccess: $isErrorOrSuccess, isLoading: $isLoading, orders: $orders)';
+    return 'PaymentState(isErrorOrSuccess: $isErrorOrSuccess, isLoading: $isLoading, user: $user, orders: $orders)';
   }
 
   @override
@@ -147,12 +167,13 @@ class _$_Initial implements _Initial {
                 other.isErrorOrSuccess == isErrorOrSuccess) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.user, user) || other.user == user) &&
             const DeepCollectionEquality().equals(other._orders, _orders));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isErrorOrSuccess, isLoading,
-      const DeepCollectionEquality().hash(_orders));
+      user, const DeepCollectionEquality().hash(_orders));
 
   @JsonKey(ignore: true)
   @override
@@ -165,12 +186,15 @@ abstract class _Initial implements PaymentState {
   const factory _Initial(
       {required final Option<bool> isErrorOrSuccess,
       required final bool isLoading,
+      final UserModel? user,
       required final List<CartItem> orders}) = _$_Initial;
 
   @override
   Option<bool> get isErrorOrSuccess;
   @override
   bool get isLoading;
+  @override
+  UserModel? get user;
   @override
   List<CartItem> get orders;
   @override

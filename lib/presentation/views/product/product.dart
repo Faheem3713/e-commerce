@@ -1,13 +1,11 @@
 import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/views/product/product_details.dart';
+import 'package:ecommerce/presentation/views/widgets/show_messsage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../application/product/product_bloc.dart';
-import '../../../infrastructure/models/product_model.dart';
-import '../widgets/selection_chip.dart';
 import '../widgets/appbarwidget.dart';
 import '../widgets/outlined_button.dart';
-
 import 'widget/product_card.dart';
 import 'widget/radio_button.dart';
 
@@ -31,7 +29,9 @@ class ProductPage extends StatelessWidget {
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state.isError) {
-              return const Center(child: Text('Error'));
+              return const Center(
+                  child: ShowMessagePage(
+                      message: 'Error', icon: Icons.shopping_cart_outlined));
             } else if (state.products.isNotEmpty) {
               return ListView(
                 padding: AppConstants.padding10,
@@ -52,48 +52,44 @@ class ProductPage extends StatelessWidget {
                         ],
                       ),
                       AppConstants.height10,
-                      BlocBuilder<ProductBloc, ProductState>(
-                        builder: (context, state) {
-                          return GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 2,
-                              childAspectRatio: 1 / 1.35,
-                            ),
-                            itemCount: state.products.length,
-                            itemBuilder: (BuildContext context, int itemIndex) {
-                              return ProductCard(
-                                product: state.products[itemIndex],
-                                rating: '3.5',
-                                onFavoritePressed: () {},
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ProductDetailsPage(
-                                                product:
-                                                    state.products[itemIndex]),
-                                      ));
-                                },
-                                image: state.products[itemIndex].image[0],
-                                title: state.products[itemIndex].name,
-                                price:
-                                    state.products[itemIndex].price.toString(),
-                              );
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 2,
+                          childAspectRatio: 1 / 1.35,
+                        ),
+                        itemCount: state.products.length,
+                        itemBuilder: (BuildContext context, int itemIndex) {
+                          return ProductCard(
+                            product: state.products[itemIndex],
+                            rating: '3.5',
+                            onFavoritePressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductDetailsPage(
+                                        product: state.products[itemIndex]),
+                                  ));
                             },
+                            image: state.products[itemIndex].image[0],
+                            title: state.products[itemIndex].name,
+                            price: state.products[itemIndex].price.toString(),
                           );
                         },
-                      ),
+                      )
                     ],
                   )
                 ],
               );
+            } else if (state.products.isEmpty) {
+              return const ShowMessagePage(
+                  message: 'No products', icon: Icons.shopping_cart_outlined);
             } else {
-              return const Text('No Products');
+              return const SizedBox();
             }
           },
         ));
@@ -116,14 +112,14 @@ class ProductPage extends StatelessWidget {
                   AppConstants.height10,
                   const Text('Size'),
                   AppConstants.height10,
-                  Wrap(
-                    children: [
-                      SelectionChip(
-                        chips: const ['30', '31', '32', '33', '34'],
-                        onSizeSelected: (p0) {},
-                      )
-                    ],
-                  ),
+                  // Wrap(
+                  //   children: [
+                  //     SelectionChip(
+                  //       chips: const ['30', '31', '32', '33', '34'],
+                  //       onSizeSelected: (p0) {},
+                  //     )
+                  //   ],
+                  // ),
                   AppConstants.height10,
                   CustomOutlinedbutton(
                     text: 'Apply',

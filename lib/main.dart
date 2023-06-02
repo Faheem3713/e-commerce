@@ -4,21 +4,18 @@ import 'package:ecommerce/application/ventor/ventor_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:ecommerce/firebase_options.dart';
 import 'package:ecommerce/injection.dart';
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
-import 'package:ecommerce/presentation/views/main_screen.dart';
-import 'package:ecommerce/presentation/views/auth/phone_auth.dart';
-import 'package:ecommerce/presentation/views/auth/sign_in.dart';
-
 import 'application/auth/auth_bloc.dart';
 import 'application/cart/cart_bloc.dart';
 import 'application/product/product_bloc.dart';
+import 'presentation/views/onboarding/user_selection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   configInjection();
 
   runApp(const MyApp());
@@ -42,13 +39,14 @@ class MyApp extends StatelessWidget {
               getIt<CartBloc>()..add(const CartEvent.getCart(option: 'cart')),
         ),
         BlocProvider<VentorBloc>(
-          create: (context) => getIt<VentorBloc>(),
+          create: (context) =>
+              getIt<VentorBloc>()..add(const VentorEvent.getProducts()),
         ),
         BlocProvider<CheckDataCubit>(
           create: (context) => getIt<CheckDataCubit>(),
         ),
         BlocProvider<PaymentCubit>(
-          create: (context) => getIt<PaymentCubit>(),
+          create: (context) => getIt<PaymentCubit>()..getProfiele(),
         )
       ],
       child: MaterialApp(
@@ -65,8 +63,12 @@ class MyApp extends StatelessWidget {
           ),
           fontFamily: 'Montserrat',
         ),
-        home: MainScreen(),
+        home: SelectingOptionPage(),
       ),
     );
   }
 }
+
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   print("Handling a background message: ${message.messageId}");
+// }

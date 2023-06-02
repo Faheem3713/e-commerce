@@ -20,10 +20,9 @@ mixin _$AuthEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passwordStr) passwordChanged,
-    required TResult Function() signIn,
-    required TResult Function() register,
+    required TResult Function(String email, String password) signIn,
+    required TResult Function(String email, String password) register,
     required TResult Function() signInWithGoogle,
-    required TResult Function(bool isValidate) toggleAutovalidate,
     required TResult Function(String phoneNumber, BuildContext context)
         phoneAuth,
     required TResult Function(String phone) phoneChanged,
@@ -34,10 +33,9 @@ mixin _$AuthEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passwordStr)? passwordChanged,
-    TResult? Function()? signIn,
-    TResult? Function()? register,
+    TResult? Function(String email, String password)? signIn,
+    TResult? Function(String email, String password)? register,
     TResult? Function()? signInWithGoogle,
-    TResult? Function(bool isValidate)? toggleAutovalidate,
     TResult? Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult? Function(String phone)? phoneChanged,
     TResult? Function(String phone)? resentCode,
@@ -47,10 +45,9 @@ mixin _$AuthEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passwordStr)? passwordChanged,
-    TResult Function()? signIn,
-    TResult Function()? register,
+    TResult Function(String email, String password)? signIn,
+    TResult Function(String email, String password)? register,
     TResult Function()? signInWithGoogle,
-    TResult Function(bool isValidate)? toggleAutovalidate,
     TResult Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult Function(String phone)? phoneChanged,
     TResult Function(String phone)? resentCode,
@@ -64,7 +61,6 @@ mixin _$AuthEvent {
     required TResult Function(_SignIn value) signIn,
     required TResult Function(_Register value) register,
     required TResult Function(_SignInWithGoogle value) signInWithGoogle,
-    required TResult Function(_ToggleAutovalidate value) toggleAutovalidate,
     required TResult Function(_PhoneAuth value) phoneAuth,
     required TResult Function(_PhoneChanged value) phoneChanged,
     required TResult Function(_ResentCode value) resentCode,
@@ -77,7 +73,6 @@ mixin _$AuthEvent {
     TResult? Function(_SignIn value)? signIn,
     TResult? Function(_Register value)? register,
     TResult? Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult? Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult? Function(_PhoneAuth value)? phoneAuth,
     TResult? Function(_PhoneChanged value)? phoneChanged,
     TResult? Function(_ResentCode value)? resentCode,
@@ -90,7 +85,6 @@ mixin _$AuthEvent {
     TResult Function(_SignIn value)? signIn,
     TResult Function(_Register value)? register,
     TResult Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult Function(_PhoneAuth value)? phoneAuth,
     TResult Function(_PhoneChanged value)? phoneChanged,
     TResult Function(_ResentCode value)? resentCode,
@@ -183,10 +177,9 @@ class _$_EmailChanged implements _EmailChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passwordStr) passwordChanged,
-    required TResult Function() signIn,
-    required TResult Function() register,
+    required TResult Function(String email, String password) signIn,
+    required TResult Function(String email, String password) register,
     required TResult Function() signInWithGoogle,
-    required TResult Function(bool isValidate) toggleAutovalidate,
     required TResult Function(String phoneNumber, BuildContext context)
         phoneAuth,
     required TResult Function(String phone) phoneChanged,
@@ -200,10 +193,9 @@ class _$_EmailChanged implements _EmailChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passwordStr)? passwordChanged,
-    TResult? Function()? signIn,
-    TResult? Function()? register,
+    TResult? Function(String email, String password)? signIn,
+    TResult? Function(String email, String password)? register,
     TResult? Function()? signInWithGoogle,
-    TResult? Function(bool isValidate)? toggleAutovalidate,
     TResult? Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult? Function(String phone)? phoneChanged,
     TResult? Function(String phone)? resentCode,
@@ -216,10 +208,9 @@ class _$_EmailChanged implements _EmailChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passwordStr)? passwordChanged,
-    TResult Function()? signIn,
-    TResult Function()? register,
+    TResult Function(String email, String password)? signIn,
+    TResult Function(String email, String password)? register,
     TResult Function()? signInWithGoogle,
-    TResult Function(bool isValidate)? toggleAutovalidate,
     TResult Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult Function(String phone)? phoneChanged,
     TResult Function(String phone)? resentCode,
@@ -239,7 +230,6 @@ class _$_EmailChanged implements _EmailChanged {
     required TResult Function(_SignIn value) signIn,
     required TResult Function(_Register value) register,
     required TResult Function(_SignInWithGoogle value) signInWithGoogle,
-    required TResult Function(_ToggleAutovalidate value) toggleAutovalidate,
     required TResult Function(_PhoneAuth value) phoneAuth,
     required TResult Function(_PhoneChanged value) phoneChanged,
     required TResult Function(_ResentCode value) resentCode,
@@ -255,7 +245,6 @@ class _$_EmailChanged implements _EmailChanged {
     TResult? Function(_SignIn value)? signIn,
     TResult? Function(_Register value)? register,
     TResult? Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult? Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult? Function(_PhoneAuth value)? phoneAuth,
     TResult? Function(_PhoneChanged value)? phoneChanged,
     TResult? Function(_ResentCode value)? resentCode,
@@ -271,7 +260,6 @@ class _$_EmailChanged implements _EmailChanged {
     TResult Function(_SignIn value)? signIn,
     TResult Function(_Register value)? register,
     TResult Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult Function(_PhoneAuth value)? phoneAuth,
     TResult Function(_PhoneChanged value)? phoneChanged,
     TResult Function(_ResentCode value)? resentCode,
@@ -360,10 +348,9 @@ class _$_PassWordChanged implements _PassWordChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passwordStr) passwordChanged,
-    required TResult Function() signIn,
-    required TResult Function() register,
+    required TResult Function(String email, String password) signIn,
+    required TResult Function(String email, String password) register,
     required TResult Function() signInWithGoogle,
-    required TResult Function(bool isValidate) toggleAutovalidate,
     required TResult Function(String phoneNumber, BuildContext context)
         phoneAuth,
     required TResult Function(String phone) phoneChanged,
@@ -377,10 +364,9 @@ class _$_PassWordChanged implements _PassWordChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passwordStr)? passwordChanged,
-    TResult? Function()? signIn,
-    TResult? Function()? register,
+    TResult? Function(String email, String password)? signIn,
+    TResult? Function(String email, String password)? register,
     TResult? Function()? signInWithGoogle,
-    TResult? Function(bool isValidate)? toggleAutovalidate,
     TResult? Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult? Function(String phone)? phoneChanged,
     TResult? Function(String phone)? resentCode,
@@ -393,10 +379,9 @@ class _$_PassWordChanged implements _PassWordChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passwordStr)? passwordChanged,
-    TResult Function()? signIn,
-    TResult Function()? register,
+    TResult Function(String email, String password)? signIn,
+    TResult Function(String email, String password)? register,
     TResult Function()? signInWithGoogle,
-    TResult Function(bool isValidate)? toggleAutovalidate,
     TResult Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult Function(String phone)? phoneChanged,
     TResult Function(String phone)? resentCode,
@@ -416,7 +401,6 @@ class _$_PassWordChanged implements _PassWordChanged {
     required TResult Function(_SignIn value) signIn,
     required TResult Function(_Register value) register,
     required TResult Function(_SignInWithGoogle value) signInWithGoogle,
-    required TResult Function(_ToggleAutovalidate value) toggleAutovalidate,
     required TResult Function(_PhoneAuth value) phoneAuth,
     required TResult Function(_PhoneChanged value) phoneChanged,
     required TResult Function(_ResentCode value) resentCode,
@@ -432,7 +416,6 @@ class _$_PassWordChanged implements _PassWordChanged {
     TResult? Function(_SignIn value)? signIn,
     TResult? Function(_Register value)? register,
     TResult? Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult? Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult? Function(_PhoneAuth value)? phoneAuth,
     TResult? Function(_PhoneChanged value)? phoneChanged,
     TResult? Function(_ResentCode value)? resentCode,
@@ -448,7 +431,6 @@ class _$_PassWordChanged implements _PassWordChanged {
     TResult Function(_SignIn value)? signIn,
     TResult Function(_Register value)? register,
     TResult Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult Function(_PhoneAuth value)? phoneAuth,
     TResult Function(_PhoneChanged value)? phoneChanged,
     TResult Function(_ResentCode value)? resentCode,
@@ -474,6 +456,8 @@ abstract class _PassWordChanged implements AuthEvent {
 abstract class _$$_SignInCopyWith<$Res> {
   factory _$$_SignInCopyWith(_$_SignIn value, $Res Function(_$_SignIn) then) =
       __$$_SignInCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String password});
 }
 
 /// @nodoc
@@ -482,42 +466,74 @@ class __$$_SignInCopyWithImpl<$Res>
     implements _$$_SignInCopyWith<$Res> {
   __$$_SignInCopyWithImpl(_$_SignIn _value, $Res Function(_$_SignIn) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_$_SignIn(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_SignIn implements _SignIn {
-  const _$_SignIn();
+  const _$_SignIn({required this.email, required this.password});
+
+  @override
+  final String email;
+  @override
+  final String password;
 
   @override
   String toString() {
-    return 'AuthEvent.signIn()';
+    return 'AuthEvent.signIn(email: $email, password: $password)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_SignIn);
+        (other.runtimeType == runtimeType &&
+            other is _$_SignIn &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, email, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SignInCopyWith<_$_SignIn> get copyWith =>
+      __$$_SignInCopyWithImpl<_$_SignIn>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passwordStr) passwordChanged,
-    required TResult Function() signIn,
-    required TResult Function() register,
+    required TResult Function(String email, String password) signIn,
+    required TResult Function(String email, String password) register,
     required TResult Function() signInWithGoogle,
-    required TResult Function(bool isValidate) toggleAutovalidate,
     required TResult Function(String phoneNumber, BuildContext context)
         phoneAuth,
     required TResult Function(String phone) phoneChanged,
     required TResult Function(String phone) resentCode,
   }) {
-    return signIn();
+    return signIn(email, password);
   }
 
   @override
@@ -525,15 +541,14 @@ class _$_SignIn implements _SignIn {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passwordStr)? passwordChanged,
-    TResult? Function()? signIn,
-    TResult? Function()? register,
+    TResult? Function(String email, String password)? signIn,
+    TResult? Function(String email, String password)? register,
     TResult? Function()? signInWithGoogle,
-    TResult? Function(bool isValidate)? toggleAutovalidate,
     TResult? Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult? Function(String phone)? phoneChanged,
     TResult? Function(String phone)? resentCode,
   }) {
-    return signIn?.call();
+    return signIn?.call(email, password);
   }
 
   @override
@@ -541,17 +556,16 @@ class _$_SignIn implements _SignIn {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passwordStr)? passwordChanged,
-    TResult Function()? signIn,
-    TResult Function()? register,
+    TResult Function(String email, String password)? signIn,
+    TResult Function(String email, String password)? register,
     TResult Function()? signInWithGoogle,
-    TResult Function(bool isValidate)? toggleAutovalidate,
     TResult Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult Function(String phone)? phoneChanged,
     TResult Function(String phone)? resentCode,
     required TResult orElse(),
   }) {
     if (signIn != null) {
-      return signIn();
+      return signIn(email, password);
     }
     return orElse();
   }
@@ -564,7 +578,6 @@ class _$_SignIn implements _SignIn {
     required TResult Function(_SignIn value) signIn,
     required TResult Function(_Register value) register,
     required TResult Function(_SignInWithGoogle value) signInWithGoogle,
-    required TResult Function(_ToggleAutovalidate value) toggleAutovalidate,
     required TResult Function(_PhoneAuth value) phoneAuth,
     required TResult Function(_PhoneChanged value) phoneChanged,
     required TResult Function(_ResentCode value) resentCode,
@@ -580,7 +593,6 @@ class _$_SignIn implements _SignIn {
     TResult? Function(_SignIn value)? signIn,
     TResult? Function(_Register value)? register,
     TResult? Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult? Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult? Function(_PhoneAuth value)? phoneAuth,
     TResult? Function(_PhoneChanged value)? phoneChanged,
     TResult? Function(_ResentCode value)? resentCode,
@@ -596,7 +608,6 @@ class _$_SignIn implements _SignIn {
     TResult Function(_SignIn value)? signIn,
     TResult Function(_Register value)? register,
     TResult Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult Function(_PhoneAuth value)? phoneAuth,
     TResult Function(_PhoneChanged value)? phoneChanged,
     TResult Function(_ResentCode value)? resentCode,
@@ -610,7 +621,15 @@ class _$_SignIn implements _SignIn {
 }
 
 abstract class _SignIn implements AuthEvent {
-  const factory _SignIn() = _$_SignIn;
+  const factory _SignIn(
+      {required final String email,
+      required final String password}) = _$_SignIn;
+
+  String get email;
+  String get password;
+  @JsonKey(ignore: true)
+  _$$_SignInCopyWith<_$_SignIn> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -618,6 +637,8 @@ abstract class _$$_RegisterCopyWith<$Res> {
   factory _$$_RegisterCopyWith(
           _$_Register value, $Res Function(_$_Register) then) =
       __$$_RegisterCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String password});
 }
 
 /// @nodoc
@@ -627,42 +648,74 @@ class __$$_RegisterCopyWithImpl<$Res>
   __$$_RegisterCopyWithImpl(
       _$_Register _value, $Res Function(_$_Register) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_$_Register(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Register implements _Register {
-  const _$_Register();
+  const _$_Register({required this.email, required this.password});
+
+  @override
+  final String email;
+  @override
+  final String password;
 
   @override
   String toString() {
-    return 'AuthEvent.register()';
+    return 'AuthEvent.register(email: $email, password: $password)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Register);
+        (other.runtimeType == runtimeType &&
+            other is _$_Register &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, email, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RegisterCopyWith<_$_Register> get copyWith =>
+      __$$_RegisterCopyWithImpl<_$_Register>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passwordStr) passwordChanged,
-    required TResult Function() signIn,
-    required TResult Function() register,
+    required TResult Function(String email, String password) signIn,
+    required TResult Function(String email, String password) register,
     required TResult Function() signInWithGoogle,
-    required TResult Function(bool isValidate) toggleAutovalidate,
     required TResult Function(String phoneNumber, BuildContext context)
         phoneAuth,
     required TResult Function(String phone) phoneChanged,
     required TResult Function(String phone) resentCode,
   }) {
-    return register();
+    return register(email, password);
   }
 
   @override
@@ -670,15 +723,14 @@ class _$_Register implements _Register {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passwordStr)? passwordChanged,
-    TResult? Function()? signIn,
-    TResult? Function()? register,
+    TResult? Function(String email, String password)? signIn,
+    TResult? Function(String email, String password)? register,
     TResult? Function()? signInWithGoogle,
-    TResult? Function(bool isValidate)? toggleAutovalidate,
     TResult? Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult? Function(String phone)? phoneChanged,
     TResult? Function(String phone)? resentCode,
   }) {
-    return register?.call();
+    return register?.call(email, password);
   }
 
   @override
@@ -686,17 +738,16 @@ class _$_Register implements _Register {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passwordStr)? passwordChanged,
-    TResult Function()? signIn,
-    TResult Function()? register,
+    TResult Function(String email, String password)? signIn,
+    TResult Function(String email, String password)? register,
     TResult Function()? signInWithGoogle,
-    TResult Function(bool isValidate)? toggleAutovalidate,
     TResult Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult Function(String phone)? phoneChanged,
     TResult Function(String phone)? resentCode,
     required TResult orElse(),
   }) {
     if (register != null) {
-      return register();
+      return register(email, password);
     }
     return orElse();
   }
@@ -709,7 +760,6 @@ class _$_Register implements _Register {
     required TResult Function(_SignIn value) signIn,
     required TResult Function(_Register value) register,
     required TResult Function(_SignInWithGoogle value) signInWithGoogle,
-    required TResult Function(_ToggleAutovalidate value) toggleAutovalidate,
     required TResult Function(_PhoneAuth value) phoneAuth,
     required TResult Function(_PhoneChanged value) phoneChanged,
     required TResult Function(_ResentCode value) resentCode,
@@ -725,7 +775,6 @@ class _$_Register implements _Register {
     TResult? Function(_SignIn value)? signIn,
     TResult? Function(_Register value)? register,
     TResult? Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult? Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult? Function(_PhoneAuth value)? phoneAuth,
     TResult? Function(_PhoneChanged value)? phoneChanged,
     TResult? Function(_ResentCode value)? resentCode,
@@ -741,7 +790,6 @@ class _$_Register implements _Register {
     TResult Function(_SignIn value)? signIn,
     TResult Function(_Register value)? register,
     TResult Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult Function(_PhoneAuth value)? phoneAuth,
     TResult Function(_PhoneChanged value)? phoneChanged,
     TResult Function(_ResentCode value)? resentCode,
@@ -755,7 +803,15 @@ class _$_Register implements _Register {
 }
 
 abstract class _Register implements AuthEvent {
-  const factory _Register() = _$_Register;
+  const factory _Register(
+      {required final String email,
+      required final String password}) = _$_Register;
+
+  String get email;
+  String get password;
+  @JsonKey(ignore: true)
+  _$$_RegisterCopyWith<_$_Register> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -798,10 +854,9 @@ class _$_SignInWithGoogle implements _SignInWithGoogle {
   TResult when<TResult extends Object?>({
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passwordStr) passwordChanged,
-    required TResult Function() signIn,
-    required TResult Function() register,
+    required TResult Function(String email, String password) signIn,
+    required TResult Function(String email, String password) register,
     required TResult Function() signInWithGoogle,
-    required TResult Function(bool isValidate) toggleAutovalidate,
     required TResult Function(String phoneNumber, BuildContext context)
         phoneAuth,
     required TResult Function(String phone) phoneChanged,
@@ -815,10 +870,9 @@ class _$_SignInWithGoogle implements _SignInWithGoogle {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passwordStr)? passwordChanged,
-    TResult? Function()? signIn,
-    TResult? Function()? register,
+    TResult? Function(String email, String password)? signIn,
+    TResult? Function(String email, String password)? register,
     TResult? Function()? signInWithGoogle,
-    TResult? Function(bool isValidate)? toggleAutovalidate,
     TResult? Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult? Function(String phone)? phoneChanged,
     TResult? Function(String phone)? resentCode,
@@ -831,10 +885,9 @@ class _$_SignInWithGoogle implements _SignInWithGoogle {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passwordStr)? passwordChanged,
-    TResult Function()? signIn,
-    TResult Function()? register,
+    TResult Function(String email, String password)? signIn,
+    TResult Function(String email, String password)? register,
     TResult Function()? signInWithGoogle,
-    TResult Function(bool isValidate)? toggleAutovalidate,
     TResult Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult Function(String phone)? phoneChanged,
     TResult Function(String phone)? resentCode,
@@ -854,7 +907,6 @@ class _$_SignInWithGoogle implements _SignInWithGoogle {
     required TResult Function(_SignIn value) signIn,
     required TResult Function(_Register value) register,
     required TResult Function(_SignInWithGoogle value) signInWithGoogle,
-    required TResult Function(_ToggleAutovalidate value) toggleAutovalidate,
     required TResult Function(_PhoneAuth value) phoneAuth,
     required TResult Function(_PhoneChanged value) phoneChanged,
     required TResult Function(_ResentCode value) resentCode,
@@ -870,7 +922,6 @@ class _$_SignInWithGoogle implements _SignInWithGoogle {
     TResult? Function(_SignIn value)? signIn,
     TResult? Function(_Register value)? register,
     TResult? Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult? Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult? Function(_PhoneAuth value)? phoneAuth,
     TResult? Function(_PhoneChanged value)? phoneChanged,
     TResult? Function(_ResentCode value)? resentCode,
@@ -886,7 +937,6 @@ class _$_SignInWithGoogle implements _SignInWithGoogle {
     TResult Function(_SignIn value)? signIn,
     TResult Function(_Register value)? register,
     TResult Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult Function(_PhoneAuth value)? phoneAuth,
     TResult Function(_PhoneChanged value)? phoneChanged,
     TResult Function(_ResentCode value)? resentCode,
@@ -901,185 +951,6 @@ class _$_SignInWithGoogle implements _SignInWithGoogle {
 
 abstract class _SignInWithGoogle implements AuthEvent {
   const factory _SignInWithGoogle() = _$_SignInWithGoogle;
-}
-
-/// @nodoc
-abstract class _$$_ToggleAutovalidateCopyWith<$Res> {
-  factory _$$_ToggleAutovalidateCopyWith(_$_ToggleAutovalidate value,
-          $Res Function(_$_ToggleAutovalidate) then) =
-      __$$_ToggleAutovalidateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isValidate});
-}
-
-/// @nodoc
-class __$$_ToggleAutovalidateCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$_ToggleAutovalidate>
-    implements _$$_ToggleAutovalidateCopyWith<$Res> {
-  __$$_ToggleAutovalidateCopyWithImpl(
-      _$_ToggleAutovalidate _value, $Res Function(_$_ToggleAutovalidate) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isValidate = null,
-  }) {
-    return _then(_$_ToggleAutovalidate(
-      isValidate: null == isValidate
-          ? _value.isValidate
-          : isValidate // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_ToggleAutovalidate implements _ToggleAutovalidate {
-  const _$_ToggleAutovalidate({required this.isValidate});
-
-  @override
-  final bool isValidate;
-
-  @override
-  String toString() {
-    return 'AuthEvent.toggleAutovalidate(isValidate: $isValidate)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ToggleAutovalidate &&
-            (identical(other.isValidate, isValidate) ||
-                other.isValidate == isValidate));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, isValidate);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ToggleAutovalidateCopyWith<_$_ToggleAutovalidate> get copyWith =>
-      __$$_ToggleAutovalidateCopyWithImpl<_$_ToggleAutovalidate>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String emailStr) emailChanged,
-    required TResult Function(String passwordStr) passwordChanged,
-    required TResult Function() signIn,
-    required TResult Function() register,
-    required TResult Function() signInWithGoogle,
-    required TResult Function(bool isValidate) toggleAutovalidate,
-    required TResult Function(String phoneNumber, BuildContext context)
-        phoneAuth,
-    required TResult Function(String phone) phoneChanged,
-    required TResult Function(String phone) resentCode,
-  }) {
-    return toggleAutovalidate(isValidate);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String emailStr)? emailChanged,
-    TResult? Function(String passwordStr)? passwordChanged,
-    TResult? Function()? signIn,
-    TResult? Function()? register,
-    TResult? Function()? signInWithGoogle,
-    TResult? Function(bool isValidate)? toggleAutovalidate,
-    TResult? Function(String phoneNumber, BuildContext context)? phoneAuth,
-    TResult? Function(String phone)? phoneChanged,
-    TResult? Function(String phone)? resentCode,
-  }) {
-    return toggleAutovalidate?.call(isValidate);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String emailStr)? emailChanged,
-    TResult Function(String passwordStr)? passwordChanged,
-    TResult Function()? signIn,
-    TResult Function()? register,
-    TResult Function()? signInWithGoogle,
-    TResult Function(bool isValidate)? toggleAutovalidate,
-    TResult Function(String phoneNumber, BuildContext context)? phoneAuth,
-    TResult Function(String phone)? phoneChanged,
-    TResult Function(String phone)? resentCode,
-    required TResult orElse(),
-  }) {
-    if (toggleAutovalidate != null) {
-      return toggleAutovalidate(isValidate);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_EmailChanged value) emailChanged,
-    required TResult Function(_PassWordChanged value) passwordChanged,
-    required TResult Function(_SignIn value) signIn,
-    required TResult Function(_Register value) register,
-    required TResult Function(_SignInWithGoogle value) signInWithGoogle,
-    required TResult Function(_ToggleAutovalidate value) toggleAutovalidate,
-    required TResult Function(_PhoneAuth value) phoneAuth,
-    required TResult Function(_PhoneChanged value) phoneChanged,
-    required TResult Function(_ResentCode value) resentCode,
-  }) {
-    return toggleAutovalidate(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_EmailChanged value)? emailChanged,
-    TResult? Function(_PassWordChanged value)? passwordChanged,
-    TResult? Function(_SignIn value)? signIn,
-    TResult? Function(_Register value)? register,
-    TResult? Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult? Function(_ToggleAutovalidate value)? toggleAutovalidate,
-    TResult? Function(_PhoneAuth value)? phoneAuth,
-    TResult? Function(_PhoneChanged value)? phoneChanged,
-    TResult? Function(_ResentCode value)? resentCode,
-  }) {
-    return toggleAutovalidate?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_EmailChanged value)? emailChanged,
-    TResult Function(_PassWordChanged value)? passwordChanged,
-    TResult Function(_SignIn value)? signIn,
-    TResult Function(_Register value)? register,
-    TResult Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult Function(_ToggleAutovalidate value)? toggleAutovalidate,
-    TResult Function(_PhoneAuth value)? phoneAuth,
-    TResult Function(_PhoneChanged value)? phoneChanged,
-    TResult Function(_ResentCode value)? resentCode,
-    required TResult orElse(),
-  }) {
-    if (toggleAutovalidate != null) {
-      return toggleAutovalidate(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ToggleAutovalidate implements AuthEvent {
-  const factory _ToggleAutovalidate({required final bool isValidate}) =
-      _$_ToggleAutovalidate;
-
-  bool get isValidate;
-  @JsonKey(ignore: true)
-  _$$_ToggleAutovalidateCopyWith<_$_ToggleAutovalidate> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1157,10 +1028,9 @@ class _$_PhoneAuth implements _PhoneAuth {
   TResult when<TResult extends Object?>({
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passwordStr) passwordChanged,
-    required TResult Function() signIn,
-    required TResult Function() register,
+    required TResult Function(String email, String password) signIn,
+    required TResult Function(String email, String password) register,
     required TResult Function() signInWithGoogle,
-    required TResult Function(bool isValidate) toggleAutovalidate,
     required TResult Function(String phoneNumber, BuildContext context)
         phoneAuth,
     required TResult Function(String phone) phoneChanged,
@@ -1174,10 +1044,9 @@ class _$_PhoneAuth implements _PhoneAuth {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passwordStr)? passwordChanged,
-    TResult? Function()? signIn,
-    TResult? Function()? register,
+    TResult? Function(String email, String password)? signIn,
+    TResult? Function(String email, String password)? register,
     TResult? Function()? signInWithGoogle,
-    TResult? Function(bool isValidate)? toggleAutovalidate,
     TResult? Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult? Function(String phone)? phoneChanged,
     TResult? Function(String phone)? resentCode,
@@ -1190,10 +1059,9 @@ class _$_PhoneAuth implements _PhoneAuth {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passwordStr)? passwordChanged,
-    TResult Function()? signIn,
-    TResult Function()? register,
+    TResult Function(String email, String password)? signIn,
+    TResult Function(String email, String password)? register,
     TResult Function()? signInWithGoogle,
-    TResult Function(bool isValidate)? toggleAutovalidate,
     TResult Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult Function(String phone)? phoneChanged,
     TResult Function(String phone)? resentCode,
@@ -1213,7 +1081,6 @@ class _$_PhoneAuth implements _PhoneAuth {
     required TResult Function(_SignIn value) signIn,
     required TResult Function(_Register value) register,
     required TResult Function(_SignInWithGoogle value) signInWithGoogle,
-    required TResult Function(_ToggleAutovalidate value) toggleAutovalidate,
     required TResult Function(_PhoneAuth value) phoneAuth,
     required TResult Function(_PhoneChanged value) phoneChanged,
     required TResult Function(_ResentCode value) resentCode,
@@ -1229,7 +1096,6 @@ class _$_PhoneAuth implements _PhoneAuth {
     TResult? Function(_SignIn value)? signIn,
     TResult? Function(_Register value)? register,
     TResult? Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult? Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult? Function(_PhoneAuth value)? phoneAuth,
     TResult? Function(_PhoneChanged value)? phoneChanged,
     TResult? Function(_ResentCode value)? resentCode,
@@ -1245,7 +1111,6 @@ class _$_PhoneAuth implements _PhoneAuth {
     TResult Function(_SignIn value)? signIn,
     TResult Function(_Register value)? register,
     TResult Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult Function(_PhoneAuth value)? phoneAuth,
     TResult Function(_PhoneChanged value)? phoneChanged,
     TResult Function(_ResentCode value)? resentCode,
@@ -1336,10 +1201,9 @@ class _$_PhoneChanged implements _PhoneChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passwordStr) passwordChanged,
-    required TResult Function() signIn,
-    required TResult Function() register,
+    required TResult Function(String email, String password) signIn,
+    required TResult Function(String email, String password) register,
     required TResult Function() signInWithGoogle,
-    required TResult Function(bool isValidate) toggleAutovalidate,
     required TResult Function(String phoneNumber, BuildContext context)
         phoneAuth,
     required TResult Function(String phone) phoneChanged,
@@ -1353,10 +1217,9 @@ class _$_PhoneChanged implements _PhoneChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passwordStr)? passwordChanged,
-    TResult? Function()? signIn,
-    TResult? Function()? register,
+    TResult? Function(String email, String password)? signIn,
+    TResult? Function(String email, String password)? register,
     TResult? Function()? signInWithGoogle,
-    TResult? Function(bool isValidate)? toggleAutovalidate,
     TResult? Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult? Function(String phone)? phoneChanged,
     TResult? Function(String phone)? resentCode,
@@ -1369,10 +1232,9 @@ class _$_PhoneChanged implements _PhoneChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passwordStr)? passwordChanged,
-    TResult Function()? signIn,
-    TResult Function()? register,
+    TResult Function(String email, String password)? signIn,
+    TResult Function(String email, String password)? register,
     TResult Function()? signInWithGoogle,
-    TResult Function(bool isValidate)? toggleAutovalidate,
     TResult Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult Function(String phone)? phoneChanged,
     TResult Function(String phone)? resentCode,
@@ -1392,7 +1254,6 @@ class _$_PhoneChanged implements _PhoneChanged {
     required TResult Function(_SignIn value) signIn,
     required TResult Function(_Register value) register,
     required TResult Function(_SignInWithGoogle value) signInWithGoogle,
-    required TResult Function(_ToggleAutovalidate value) toggleAutovalidate,
     required TResult Function(_PhoneAuth value) phoneAuth,
     required TResult Function(_PhoneChanged value) phoneChanged,
     required TResult Function(_ResentCode value) resentCode,
@@ -1408,7 +1269,6 @@ class _$_PhoneChanged implements _PhoneChanged {
     TResult? Function(_SignIn value)? signIn,
     TResult? Function(_Register value)? register,
     TResult? Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult? Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult? Function(_PhoneAuth value)? phoneAuth,
     TResult? Function(_PhoneChanged value)? phoneChanged,
     TResult? Function(_ResentCode value)? resentCode,
@@ -1424,7 +1284,6 @@ class _$_PhoneChanged implements _PhoneChanged {
     TResult Function(_SignIn value)? signIn,
     TResult Function(_Register value)? register,
     TResult Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult Function(_PhoneAuth value)? phoneAuth,
     TResult Function(_PhoneChanged value)? phoneChanged,
     TResult Function(_ResentCode value)? resentCode,
@@ -1512,10 +1371,9 @@ class _$_ResentCode implements _ResentCode {
   TResult when<TResult extends Object?>({
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passwordStr) passwordChanged,
-    required TResult Function() signIn,
-    required TResult Function() register,
+    required TResult Function(String email, String password) signIn,
+    required TResult Function(String email, String password) register,
     required TResult Function() signInWithGoogle,
-    required TResult Function(bool isValidate) toggleAutovalidate,
     required TResult Function(String phoneNumber, BuildContext context)
         phoneAuth,
     required TResult Function(String phone) phoneChanged,
@@ -1529,10 +1387,9 @@ class _$_ResentCode implements _ResentCode {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passwordStr)? passwordChanged,
-    TResult? Function()? signIn,
-    TResult? Function()? register,
+    TResult? Function(String email, String password)? signIn,
+    TResult? Function(String email, String password)? register,
     TResult? Function()? signInWithGoogle,
-    TResult? Function(bool isValidate)? toggleAutovalidate,
     TResult? Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult? Function(String phone)? phoneChanged,
     TResult? Function(String phone)? resentCode,
@@ -1545,10 +1402,9 @@ class _$_ResentCode implements _ResentCode {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passwordStr)? passwordChanged,
-    TResult Function()? signIn,
-    TResult Function()? register,
+    TResult Function(String email, String password)? signIn,
+    TResult Function(String email, String password)? register,
     TResult Function()? signInWithGoogle,
-    TResult Function(bool isValidate)? toggleAutovalidate,
     TResult Function(String phoneNumber, BuildContext context)? phoneAuth,
     TResult Function(String phone)? phoneChanged,
     TResult Function(String phone)? resentCode,
@@ -1568,7 +1424,6 @@ class _$_ResentCode implements _ResentCode {
     required TResult Function(_SignIn value) signIn,
     required TResult Function(_Register value) register,
     required TResult Function(_SignInWithGoogle value) signInWithGoogle,
-    required TResult Function(_ToggleAutovalidate value) toggleAutovalidate,
     required TResult Function(_PhoneAuth value) phoneAuth,
     required TResult Function(_PhoneChanged value) phoneChanged,
     required TResult Function(_ResentCode value) resentCode,
@@ -1584,7 +1439,6 @@ class _$_ResentCode implements _ResentCode {
     TResult? Function(_SignIn value)? signIn,
     TResult? Function(_Register value)? register,
     TResult? Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult? Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult? Function(_PhoneAuth value)? phoneAuth,
     TResult? Function(_PhoneChanged value)? phoneChanged,
     TResult? Function(_ResentCode value)? resentCode,
@@ -1600,7 +1454,6 @@ class _$_ResentCode implements _ResentCode {
     TResult Function(_SignIn value)? signIn,
     TResult Function(_Register value)? register,
     TResult Function(_SignInWithGoogle value)? signInWithGoogle,
-    TResult Function(_ToggleAutovalidate value)? toggleAutovalidate,
     TResult Function(_PhoneAuth value)? phoneAuth,
     TResult Function(_PhoneChanged value)? phoneChanged,
     TResult Function(_ResentCode value)? resentCode,

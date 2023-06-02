@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:ecommerce/domain/auth/auth_failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:ecommerce/presentation/views/auth/otp_verification.dart';
+import 'package:ecommerce/presentation/views/auth/phone/otp_verification.dart';
 import 'package:ecommerce/presentation/views/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

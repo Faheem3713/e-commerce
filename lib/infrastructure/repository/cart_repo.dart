@@ -85,7 +85,6 @@ class CartRepository implements ICartFacade {
 
         if (phoneNo == currentUser.phoneNumber) {
           final cart = userData?[option] as List<dynamic>? ?? [];
-
           final productsData = await _productFacade.getProducts();
           productsData.fold(
             (failure) => null,

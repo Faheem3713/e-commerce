@@ -8,4 +8,5 @@ class ProductEvent with _$ProductEvent {
   factory ProductEvent.women() = _Women;
   factory ProductEvent.kids() = _Kids;
   factory ProductEvent.uniSex() = _UniSex;
+  factory ProductEvent.search({required String searchText}) = _Search;
 }

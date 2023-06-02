@@ -1,6 +1,6 @@
+import 'package:ecommerce/presentation/views/auth/google/ventor_registration.dart';
+import 'package:ecommerce/presentation/views/auth/phone/user_registration.dart';
 import 'package:flutter/material.dart';
-
-import '../sign_up.dart';
 
 class AuthTextButton extends StatelessWidget {
   const AuthTextButton({
@@ -18,8 +18,8 @@ class AuthTextButton extends StatelessWidget {
         Text(text),
         TextButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (ctx) => SignUpPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (ctx) => VentorRegistration()));
           },
           child: Text(buttonText),
         ),

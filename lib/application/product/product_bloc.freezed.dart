@@ -24,6 +24,7 @@ mixin _$ProductEvent {
     required TResult Function() women,
     required TResult Function() kids,
     required TResult Function() uniSex,
+    required TResult Function(String searchText) search,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +35,7 @@ mixin _$ProductEvent {
     TResult? Function()? women,
     TResult? Function()? kids,
     TResult? Function()? uniSex,
+    TResult? Function(String searchText)? search,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,6 +46,7 @@ mixin _$ProductEvent {
     TResult Function()? women,
     TResult Function()? kids,
     TResult Function()? uniSex,
+    TResult Function(String searchText)? search,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +58,7 @@ mixin _$ProductEvent {
     required TResult Function(_Women value) women,
     required TResult Function(_Kids value) kids,
     required TResult Function(_UniSex value) uniSex,
+    required TResult Function(_Search value) search,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +69,7 @@ mixin _$ProductEvent {
     TResult? Function(_Women value)? women,
     TResult? Function(_Kids value)? kids,
     TResult? Function(_UniSex value)? uniSex,
+    TResult? Function(_Search value)? search,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +80,7 @@ mixin _$ProductEvent {
     TResult Function(_Women value)? women,
     TResult Function(_Kids value)? kids,
     TResult Function(_UniSex value)? uniSex,
+    TResult Function(_Search value)? search,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -141,6 +147,7 @@ class _$_Started implements _Started {
     required TResult Function() women,
     required TResult Function() kids,
     required TResult Function() uniSex,
+    required TResult Function(String searchText) search,
   }) {
     return started();
   }
@@ -154,6 +161,7 @@ class _$_Started implements _Started {
     TResult? Function()? women,
     TResult? Function()? kids,
     TResult? Function()? uniSex,
+    TResult? Function(String searchText)? search,
   }) {
     return started?.call();
   }
@@ -167,6 +175,7 @@ class _$_Started implements _Started {
     TResult Function()? women,
     TResult Function()? kids,
     TResult Function()? uniSex,
+    TResult Function(String searchText)? search,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -184,6 +193,7 @@ class _$_Started implements _Started {
     required TResult Function(_Women value) women,
     required TResult Function(_Kids value) kids,
     required TResult Function(_UniSex value) uniSex,
+    required TResult Function(_Search value) search,
   }) {
     return started(this);
   }
@@ -197,6 +207,7 @@ class _$_Started implements _Started {
     TResult? Function(_Women value)? women,
     TResult? Function(_Kids value)? kids,
     TResult? Function(_UniSex value)? uniSex,
+    TResult? Function(_Search value)? search,
   }) {
     return started?.call(this);
   }
@@ -210,6 +221,7 @@ class _$_Started implements _Started {
     TResult Function(_Women value)? women,
     TResult Function(_Kids value)? kids,
     TResult Function(_UniSex value)? uniSex,
+    TResult Function(_Search value)? search,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -267,6 +279,7 @@ class _$_AllProducts implements _AllProducts {
     required TResult Function() women,
     required TResult Function() kids,
     required TResult Function() uniSex,
+    required TResult Function(String searchText) search,
   }) {
     return allProducts();
   }
@@ -280,6 +293,7 @@ class _$_AllProducts implements _AllProducts {
     TResult? Function()? women,
     TResult? Function()? kids,
     TResult? Function()? uniSex,
+    TResult? Function(String searchText)? search,
   }) {
     return allProducts?.call();
   }
@@ -293,6 +307,7 @@ class _$_AllProducts implements _AllProducts {
     TResult Function()? women,
     TResult Function()? kids,
     TResult Function()? uniSex,
+    TResult Function(String searchText)? search,
     required TResult orElse(),
   }) {
     if (allProducts != null) {
@@ -310,6 +325,7 @@ class _$_AllProducts implements _AllProducts {
     required TResult Function(_Women value) women,
     required TResult Function(_Kids value) kids,
     required TResult Function(_UniSex value) uniSex,
+    required TResult Function(_Search value) search,
   }) {
     return allProducts(this);
   }
@@ -323,6 +339,7 @@ class _$_AllProducts implements _AllProducts {
     TResult? Function(_Women value)? women,
     TResult? Function(_Kids value)? kids,
     TResult? Function(_UniSex value)? uniSex,
+    TResult? Function(_Search value)? search,
   }) {
     return allProducts?.call(this);
   }
@@ -336,6 +353,7 @@ class _$_AllProducts implements _AllProducts {
     TResult Function(_Women value)? women,
     TResult Function(_Kids value)? kids,
     TResult Function(_UniSex value)? uniSex,
+    TResult Function(_Search value)? search,
     required TResult orElse(),
   }) {
     if (allProducts != null) {
@@ -391,6 +409,7 @@ class _$_Men implements _Men {
     required TResult Function() women,
     required TResult Function() kids,
     required TResult Function() uniSex,
+    required TResult Function(String searchText) search,
   }) {
     return men();
   }
@@ -404,6 +423,7 @@ class _$_Men implements _Men {
     TResult? Function()? women,
     TResult? Function()? kids,
     TResult? Function()? uniSex,
+    TResult? Function(String searchText)? search,
   }) {
     return men?.call();
   }
@@ -417,6 +437,7 @@ class _$_Men implements _Men {
     TResult Function()? women,
     TResult Function()? kids,
     TResult Function()? uniSex,
+    TResult Function(String searchText)? search,
     required TResult orElse(),
   }) {
     if (men != null) {
@@ -434,6 +455,7 @@ class _$_Men implements _Men {
     required TResult Function(_Women value) women,
     required TResult Function(_Kids value) kids,
     required TResult Function(_UniSex value) uniSex,
+    required TResult Function(_Search value) search,
   }) {
     return men(this);
   }
@@ -447,6 +469,7 @@ class _$_Men implements _Men {
     TResult? Function(_Women value)? women,
     TResult? Function(_Kids value)? kids,
     TResult? Function(_UniSex value)? uniSex,
+    TResult? Function(_Search value)? search,
   }) {
     return men?.call(this);
   }
@@ -460,6 +483,7 @@ class _$_Men implements _Men {
     TResult Function(_Women value)? women,
     TResult Function(_Kids value)? kids,
     TResult Function(_UniSex value)? uniSex,
+    TResult Function(_Search value)? search,
     required TResult orElse(),
   }) {
     if (men != null) {
@@ -515,6 +539,7 @@ class _$_Women implements _Women {
     required TResult Function() women,
     required TResult Function() kids,
     required TResult Function() uniSex,
+    required TResult Function(String searchText) search,
   }) {
     return women();
   }
@@ -528,6 +553,7 @@ class _$_Women implements _Women {
     TResult? Function()? women,
     TResult? Function()? kids,
     TResult? Function()? uniSex,
+    TResult? Function(String searchText)? search,
   }) {
     return women?.call();
   }
@@ -541,6 +567,7 @@ class _$_Women implements _Women {
     TResult Function()? women,
     TResult Function()? kids,
     TResult Function()? uniSex,
+    TResult Function(String searchText)? search,
     required TResult orElse(),
   }) {
     if (women != null) {
@@ -558,6 +585,7 @@ class _$_Women implements _Women {
     required TResult Function(_Women value) women,
     required TResult Function(_Kids value) kids,
     required TResult Function(_UniSex value) uniSex,
+    required TResult Function(_Search value) search,
   }) {
     return women(this);
   }
@@ -571,6 +599,7 @@ class _$_Women implements _Women {
     TResult? Function(_Women value)? women,
     TResult? Function(_Kids value)? kids,
     TResult? Function(_UniSex value)? uniSex,
+    TResult? Function(_Search value)? search,
   }) {
     return women?.call(this);
   }
@@ -584,6 +613,7 @@ class _$_Women implements _Women {
     TResult Function(_Women value)? women,
     TResult Function(_Kids value)? kids,
     TResult Function(_UniSex value)? uniSex,
+    TResult Function(_Search value)? search,
     required TResult orElse(),
   }) {
     if (women != null) {
@@ -639,6 +669,7 @@ class _$_Kids implements _Kids {
     required TResult Function() women,
     required TResult Function() kids,
     required TResult Function() uniSex,
+    required TResult Function(String searchText) search,
   }) {
     return kids();
   }
@@ -652,6 +683,7 @@ class _$_Kids implements _Kids {
     TResult? Function()? women,
     TResult? Function()? kids,
     TResult? Function()? uniSex,
+    TResult? Function(String searchText)? search,
   }) {
     return kids?.call();
   }
@@ -665,6 +697,7 @@ class _$_Kids implements _Kids {
     TResult Function()? women,
     TResult Function()? kids,
     TResult Function()? uniSex,
+    TResult Function(String searchText)? search,
     required TResult orElse(),
   }) {
     if (kids != null) {
@@ -682,6 +715,7 @@ class _$_Kids implements _Kids {
     required TResult Function(_Women value) women,
     required TResult Function(_Kids value) kids,
     required TResult Function(_UniSex value) uniSex,
+    required TResult Function(_Search value) search,
   }) {
     return kids(this);
   }
@@ -695,6 +729,7 @@ class _$_Kids implements _Kids {
     TResult? Function(_Women value)? women,
     TResult? Function(_Kids value)? kids,
     TResult? Function(_UniSex value)? uniSex,
+    TResult? Function(_Search value)? search,
   }) {
     return kids?.call(this);
   }
@@ -708,6 +743,7 @@ class _$_Kids implements _Kids {
     TResult Function(_Women value)? women,
     TResult Function(_Kids value)? kids,
     TResult Function(_UniSex value)? uniSex,
+    TResult Function(_Search value)? search,
     required TResult orElse(),
   }) {
     if (kids != null) {
@@ -763,6 +799,7 @@ class _$_UniSex implements _UniSex {
     required TResult Function() women,
     required TResult Function() kids,
     required TResult Function() uniSex,
+    required TResult Function(String searchText) search,
   }) {
     return uniSex();
   }
@@ -776,6 +813,7 @@ class _$_UniSex implements _UniSex {
     TResult? Function()? women,
     TResult? Function()? kids,
     TResult? Function()? uniSex,
+    TResult? Function(String searchText)? search,
   }) {
     return uniSex?.call();
   }
@@ -789,6 +827,7 @@ class _$_UniSex implements _UniSex {
     TResult Function()? women,
     TResult Function()? kids,
     TResult Function()? uniSex,
+    TResult Function(String searchText)? search,
     required TResult orElse(),
   }) {
     if (uniSex != null) {
@@ -806,6 +845,7 @@ class _$_UniSex implements _UniSex {
     required TResult Function(_Women value) women,
     required TResult Function(_Kids value) kids,
     required TResult Function(_UniSex value) uniSex,
+    required TResult Function(_Search value) search,
   }) {
     return uniSex(this);
   }
@@ -819,6 +859,7 @@ class _$_UniSex implements _UniSex {
     TResult? Function(_Women value)? women,
     TResult? Function(_Kids value)? kids,
     TResult? Function(_UniSex value)? uniSex,
+    TResult? Function(_Search value)? search,
   }) {
     return uniSex?.call(this);
   }
@@ -832,6 +873,7 @@ class _$_UniSex implements _UniSex {
     TResult Function(_Women value)? women,
     TResult Function(_Kids value)? kids,
     TResult Function(_UniSex value)? uniSex,
+    TResult Function(_Search value)? search,
     required TResult orElse(),
   }) {
     if (uniSex != null) {
@@ -843,6 +885,168 @@ class _$_UniSex implements _UniSex {
 
 abstract class _UniSex implements ProductEvent {
   factory _UniSex() = _$_UniSex;
+}
+
+/// @nodoc
+abstract class _$$_SearchCopyWith<$Res> {
+  factory _$$_SearchCopyWith(_$_Search value, $Res Function(_$_Search) then) =
+      __$$_SearchCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String searchText});
+}
+
+/// @nodoc
+class __$$_SearchCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$_Search>
+    implements _$$_SearchCopyWith<$Res> {
+  __$$_SearchCopyWithImpl(_$_Search _value, $Res Function(_$_Search) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? searchText = null,
+  }) {
+    return _then(_$_Search(
+      searchText: null == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Search implements _Search {
+  _$_Search({required this.searchText});
+
+  @override
+  final String searchText;
+
+  @override
+  String toString() {
+    return 'ProductEvent.search(searchText: $searchText)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Search &&
+            (identical(other.searchText, searchText) ||
+                other.searchText == searchText));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, searchText);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SearchCopyWith<_$_Search> get copyWith =>
+      __$$_SearchCopyWithImpl<_$_Search>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() allProducts,
+    required TResult Function() men,
+    required TResult Function() women,
+    required TResult Function() kids,
+    required TResult Function() uniSex,
+    required TResult Function(String searchText) search,
+  }) {
+    return search(searchText);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? allProducts,
+    TResult? Function()? men,
+    TResult? Function()? women,
+    TResult? Function()? kids,
+    TResult? Function()? uniSex,
+    TResult? Function(String searchText)? search,
+  }) {
+    return search?.call(searchText);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? allProducts,
+    TResult Function()? men,
+    TResult Function()? women,
+    TResult Function()? kids,
+    TResult Function()? uniSex,
+    TResult Function(String searchText)? search,
+    required TResult orElse(),
+  }) {
+    if (search != null) {
+      return search(searchText);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_AllProducts value) allProducts,
+    required TResult Function(_Men value) men,
+    required TResult Function(_Women value) women,
+    required TResult Function(_Kids value) kids,
+    required TResult Function(_UniSex value) uniSex,
+    required TResult Function(_Search value) search,
+  }) {
+    return search(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AllProducts value)? allProducts,
+    TResult? Function(_Men value)? men,
+    TResult? Function(_Women value)? women,
+    TResult? Function(_Kids value)? kids,
+    TResult? Function(_UniSex value)? uniSex,
+    TResult? Function(_Search value)? search,
+  }) {
+    return search?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_AllProducts value)? allProducts,
+    TResult Function(_Men value)? men,
+    TResult Function(_Women value)? women,
+    TResult Function(_Kids value)? kids,
+    TResult Function(_UniSex value)? uniSex,
+    TResult Function(_Search value)? search,
+    required TResult orElse(),
+  }) {
+    if (search != null) {
+      return search(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Search implements ProductEvent {
+  factory _Search({required final String searchText}) = _$_Search;
+
+  String get searchText;
+  @JsonKey(ignore: true)
+  _$$_SearchCopyWith<_$_Search> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

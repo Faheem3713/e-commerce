@@ -4,29 +4,13 @@ import '../../core/theme/app_color.dart';
 
 import 'package:flutter/material.dart';
 
+import '../cart/checkout_page.dart';
+
 class OrderDetailsPage extends StatelessWidget {
-  final String orderNumber;
-  final String orderDate;
-  final String orderStatus;
-  final String shippingName;
-  final String shippingAddress;
-  final String shippingState;
-  final String shippingZipCode;
-  final String paymentMethod;
-  final double totalAmount;
-  final List<OrderItem> items;
+  final CartItem items;
 
   const OrderDetailsPage({
     super.key,
-    required this.orderNumber,
-    required this.orderDate,
-    required this.orderStatus,
-    required this.shippingName,
-    required this.shippingAddress,
-    required this.shippingState,
-    required this.shippingZipCode,
-    required this.paymentMethod,
-    required this.totalAmount,
     required this.items,
   });
 
@@ -84,9 +68,9 @@ class OrderDetailsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildOrderInfoRow('Order Number', orderNumber),
-          _buildOrderInfoRow('Order Date', orderDate),
-          _buildOrderInfoRow('Order Status', orderStatus),
+          _buildOrderInfoRow('Order Number', items.orderId!),
+          _buildOrderInfoRow('Order Date', items.date!),
+          _buildOrderInfoRow('Order Status', 'shipping'),
         ],
       ),
     );
@@ -116,15 +100,15 @@ class OrderDetailsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            shippingName,
+            items.name!,
             style: const TextStyle(fontSize: 16),
           ),
           Text(
-            shippingAddress,
+            items.address!,
             style: const TextStyle(fontSize: 16),
           ),
           Text(
-            '$shippingState $shippingZipCode',
+            '${items.state} ${items.zipCode}',
             style: const TextStyle(fontSize: 16),
           ),
         ],
@@ -138,10 +122,10 @@ class OrderDetailsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildPaymentDetailRow('Payment Method', paymentMethod),
+          _buildPaymentDetailRow('Payment Method', items.paymentMethod!),
           _buildPaymentDetailRow(
             'Total Amount',
-            '₹${totalAmount.toStringAsFixed(2)}',
+            '₹${items.totalPrice.toStringAsFixed(2)}',
           ),
         ],
       ),
@@ -174,9 +158,9 @@ class OrderDetailsPage extends StatelessWidget {
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: items.length,
+            itemCount: 1,
             itemBuilder: (context, index) {
-              final item = items[index];
+              final item = items.product;
               return Column(
                 children: [
                   Row(
@@ -203,7 +187,7 @@ class OrderDetailsPage extends StatelessWidget {
                     children: [
                       Text('Quantity: ${item.quantity}'),
                       Text(
-                        'Total: ₹${item.totalPrice.toStringAsFixed(2)}',
+                        'Total: ₹${item.price.toStringAsFixed(2)}',
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,

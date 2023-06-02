@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:ecommerce/application/product/product_bloc.dart';
 import 'package:ecommerce/infrastructure/models/product_model.dart';
 import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/core/theme/app_color.dart';

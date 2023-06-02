@@ -1,28 +1,32 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
+import 'package:ecommerce/application/ventor/ventor_bloc.dart';
 import 'package:ecommerce/infrastructure/repository/firebase_add.dart';
 import 'package:ecommerce/presentation/core/constants/constants.dart';
-import 'package:ecommerce/presentation/core/theme/app_color.dart';
+import 'package:ecommerce/presentation/views/ventor/home.dart';
 import 'package:ecommerce/presentation/views/widgets/appbarwidget.dart';
 import 'package:ecommerce/presentation/views/widgets/button_widget.dart';
 import 'package:ecommerce/presentation/views/widgets/outlined_button.dart';
 import 'package:ecommerce/presentation/views/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:image_picker/image_picker.dart';
 
-class AdminPage extends StatelessWidget {
-  AdminPage({super.key});
+import 'widgets/category_dropdown.dart';
+
+class ProductAddPage extends StatelessWidget {
+  ProductAddPage({super.key});
   final _descriptionController = TextEditingController();
   final _nameController = TextEditingController();
   final _discountController = TextEditingController();
   final _priceController = TextEditingController();
+  final _quantityController = TextEditingController();
   List<String> categoryData = ['Men', 'Women', 'Kids', 'Unisex'];
   List<String> brands = ['Nike', 'Adidas', 'Puma', 'Reebok'];
   List<int> shoeSize = [30, 31, 32, 33, 34, 35, 36, 37];
+
   ValueNotifier<String?> categoryValue = ValueNotifier(null);
   ValueNotifier<String?> brandValue = ValueNotifier(null);
   ValueNotifier<List<File>> image = ValueNotifier([]);
@@ -94,12 +98,23 @@ class AdminPage extends StatelessWidget {
                   ],
                 ),
               ),
-              CustomDropDown(
-                  brandValue: categoryValue,
-                  brands: categoryData,
-                  text: 'Select category'),
-              CustomDropDown(
-                  brandValue: brandValue, brands: brands, text: 'Select brand'),
+              CustomTextField(
+                  prefixIcon: Icons.numbers_outlined,
+                  controller: _quantityController,
+                  placeholderText: 'quantity'),
+              Row(
+                children: [
+                  CustomDropDown(
+                      brandValue: categoryValue,
+                      brands: categoryData,
+                      text: 'Select category'),
+                  AppConstants.width10,
+                  CustomDropDown(
+                      brandValue: brandValue,
+                      brands: brands,
+                      text: 'Select brand'),
+                ],
+              ),
               CustomOutlinedbutton(
                 text: 'Available size',
                 onPressed: () {
@@ -151,77 +166,56 @@ class AdminPage extends StatelessWidget {
         });
   }
 
-  onSubmit(BuildContext context) {
-    if (image.value.isEmpty ||
+  void onSubmit(BuildContext context) {
+    final isEmptyField = image.value.isEmpty ||
+        _quantityController.text.isEmpty ||
         categoryValue.value == null ||
         brandValue.value == null ||
         _nameController.text.isEmpty ||
         shoeSize.isEmpty ||
-        _priceController.text.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Field cannot be empty')));
+        _priceController.text.isEmpty;
+
+    if (isEmptyField) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Field cannot be empty')),
+      );
     } else {
-      AdminManage.instance
-          .addProduct(
-            discount: _discountController.text.isEmpty
-                ? 0
-                : int.parse(_discountController.text),
+      final discount = _discountController.text.isEmpty
+          ? 0
+          : int.parse(_discountController.text);
+      final price = int.parse(_priceController.text);
+
+      context.read<VentorBloc>().add(VentorEvent.addProduct(
+            quantity: int.parse(_quantityController.text),
+            discount: discount,
             size: selectedSize,
             description: _descriptionController.text,
             image: image.value,
             productName: _nameController.text,
-            price: int.parse(_priceController.text),
+            price: price,
             category: categoryValue.value!,
             brand: brandValue.value!,
-          )
-          .then((value) => Navigator.pop(context));
+          ));
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VentorHome(),
+          ),
+          (route) => false);
     }
   }
 
   Future pickImage() async {
     try {
-      final _image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (_image == null) return;
-      final imageTemp = (File(_image.path));
+      final selectedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (selectedImage == null) return;
+      final imageTemp = (File(selectedImage.path));
       image.value.add(imageTemp);
       image.notifyListeners();
     } on PlatformException catch (e) {
       log('Failed to pick image: $e');
     }
-  }
-}
-
-class CustomDropDown extends StatelessWidget {
-  const CustomDropDown({
-    super.key,
-    required this.brandValue,
-    required this.brands,
-    required this.text,
-  });
-
-  final ValueNotifier<String?> brandValue;
-  final List<String> brands;
-  final String text;
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: brandValue,
-        builder: (context, selectedBrandValue, _) {
-          return DropdownButton(
-            isExpanded: true,
-            value: selectedBrandValue,
-            hint: Text(text),
-            items: brands
-                .map((e) => DropdownMenuItem(
-                      value: e,
-                      child: Text(e),
-                    ))
-                .toList(),
-            onChanged: (value) {
-              brandValue.value = value;
-            },
-          );
-        });
   }
 }
 

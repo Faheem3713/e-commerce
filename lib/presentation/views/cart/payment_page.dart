@@ -1,6 +1,9 @@
+import 'package:ecommerce/application/cart/cart_bloc.dart';
 import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
+
 import 'package:ecommerce/presentation/views/cart/checkout_page.dart';
+import 'package:ecommerce/presentation/views/cart/invoice_page.dart';
 import 'package:ecommerce/presentation/views/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +19,7 @@ class PaymentPage extends StatelessWidget {
     required this.couponCode,
   }) : super(key: key);
 
-  ValueNotifier<int> _selectedOption = ValueNotifier(0);
+  final ValueNotifier<int> _selectedOption = ValueNotifier(0);
 
   @override
   Widget build(BuildContext context) {
@@ -82,14 +85,23 @@ class PaymentPage extends StatelessWidget {
                   case 1:
                     context
                         .read<PaymentCubit>()
-                        .initiateRazorPay(cart, couponCode);
+                        .initiateRazorPay(cart, couponCode)
+                        .then((value) {
+                      for (var e in cart.items) {
+                        context.read<CartBloc>().add(CartEvent.removeCart(
+                            option: 'cart', id: e.product.id));
+                      }
+                    });
 
                     break;
                   case 2:
                     //pay from wallet
                     break;
                   case 3:
-                    context.read<PaymentCubit>().placeOrder(cart, couponCode);
+                    context
+                        .read<PaymentCubit>()
+                        .placeOrder(cart, couponCode)
+                        .then((value) => afterPayment(context));
                     break;
                 }
               },
@@ -98,6 +110,21 @@ class PaymentPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  afterPayment(BuildContext context) {
+    for (var e in cart.items) {
+      context
+          .read<CartBloc>()
+          .add(CartEvent.removeCart(option: 'cart', id: e.product.id));
+    }
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => InvoicePage(
+            cart: cart,
+          ),
+        ));
   }
 }
 
