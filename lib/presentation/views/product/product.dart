@@ -75,9 +75,6 @@ class ProductPage extends StatelessWidget {
                                         product: state.products[itemIndex]),
                                   ));
                             },
-                            image: state.products[itemIndex].image[0],
-                            title: state.products[itemIndex].name,
-                            price: state.products[itemIndex].price.toString(),
                           );
                         },
                       )

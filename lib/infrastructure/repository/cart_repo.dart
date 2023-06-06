@@ -141,11 +141,23 @@ class CartRepository implements ICartFacade {
                   products.where((product) => cart.contains(product.id)));
             },
           );
+          await _databaseReference.
         }
       }
       return right(cartProducts);
     } catch (e) {
       return left(const MainFailure.serverFailure());
     }
+  }
+
+  @override
+  Future<void> cartRemoval() async {
+    await _databaseReference.child('Users').once().then((value) {
+      (value.snapshot.value as Map).forEach((key, value) async {
+        if (_auth.currentUser!.phoneNumber == value['phoneNo']) {
+          _databaseReference.child('Users/$key/cart').remove();
+        }
+      });
+    });
   }
 }

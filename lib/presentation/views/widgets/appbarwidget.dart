@@ -58,9 +58,11 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             ]
           : [
               IconButton(
-                icon: Icon(Icons.close),
+                icon: const Icon(Icons.close),
                 onPressed: () {
                   setState(() {
+                    BlocProvider.of<ProductBloc>(context)
+                        .add(ProductEvent.allProducts());
                     isSearch = !isSearch;
                   });
                 },
@@ -81,7 +83,7 @@ class CartBadge extends StatelessWidget {
           icon: const Icon(Icons.shopping_cart),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (ctx) => CartPage()));
+                context, MaterialPageRoute(builder: (ctx) => const CartPage()));
           },
         ),
         AnimatedContainer(

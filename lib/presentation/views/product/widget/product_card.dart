@@ -2,30 +2,29 @@ import 'dart:convert';
 
 import 'package:ecommerce/application/cart/cart_bloc.dart';
 import 'package:ecommerce/infrastructure/models/product_model.dart';
+import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductCard extends StatelessWidget {
-  final String title;
-  final String image;
-  final String price;
   final Products product;
   final VoidCallback onFavoritePressed;
   final VoidCallback onPressed;
   final String rating;
-  ProductCard(
-      {super.key,
-      required this.product,
-      required this.title,
-      required this.image,
-      required this.price,
-      required this.onFavoritePressed,
-      required this.onPressed,
-      required this.rating});
+
+  ProductCard({
+    Key? key,
+    required this.product,
+    required this.onFavoritePressed,
+    required this.onPressed,
+    required this.rating,
+  });
+
   ValueNotifier<bool> isFavourite = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       context
               .read<CartBloc>()
               .state
@@ -36,6 +35,7 @@ class ProductCard extends StatelessWidget {
           ? isFavourite.value = true
           : isFavourite.value = false;
     });
+
     return GestureDetector(
       onTap: onPressed,
       child: Container(
@@ -49,23 +49,28 @@ class ProductCard extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.network(
-                  image,
-                  height: 150,
-                  fit: BoxFit.cover,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    product.image[0],
+                    height: 150,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Positioned(
                   top: 10,
                   left: 10,
                   child: IconButton(
                     icon: ValueListenableBuilder(
-                        valueListenable: isFavourite,
-                        builder: (context, fav, _) {
-                          return Icon(
-                            Icons.favorite_border,
-                            color: fav == true ? Colors.red : Colors.black,
-                          );
-                        }),
+                      valueListenable: isFavourite,
+                      builder: (context, fav, _) {
+                        return Icon(
+                          Icons.favorite_border,
+                          color: fav == true ? Colors.red : Colors.black,
+                        );
+                      },
+                    ),
                     onPressed: () {
                       onWishlist(context);
                     },
@@ -73,49 +78,82 @@ class ProductCard extends StatelessWidget {
                 ),
               ],
             ),
-            ListTile(
-              title: Text(
-                title,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              child: Text(
+                product.name,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-              subtitle: Row(
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    product.brand,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                Spacer(),
+                Row(
+                  children: [
+                    const SizedBox(width: 5),
+                    Icon(
+                      Icons.star,
+                      size: 16,
+                      color: Colors.yellow.shade700,
+                    ),
+                    AppConstants.width5,
+                    Text(
+                      rating,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '\$$price',
+                    '₹${product.price}',
                     style: const TextStyle(
-                      fontSize: 11.0,
+                      fontSize: 12,
+                      color: Colors.grey,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+                  Text(
+                    '₹${product.discount}',
+                    style: const TextStyle(
+                      fontSize: 13,
                       fontWeight: FontWeight.w500,
                       color: Colors.red,
                     ),
                   ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        size: 16.0,
-                        color: Colors.yellow.shade700,
-                      ),
-                      const SizedBox(width: 5.0),
-                      Text(
-                        rating,
-                        style: const TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  onWishlist(BuildContext context) async {
+  void onWishlist(BuildContext context) async {
     isFavourite.value
         ? context
             .read<CartBloc>()

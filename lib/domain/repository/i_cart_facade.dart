@@ -9,4 +9,6 @@ abstract class ICartFacade {
 
   Future<Either<MainFailure, List<Products>>> removeCart(
       {required String id, required String option});
+
+  Future<void> cartRemoval();
 }

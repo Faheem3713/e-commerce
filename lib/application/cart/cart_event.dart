@@ -9,4 +9,5 @@ class CartEvent with _$CartEvent {
       {required String option, required String id}) = _RemoveCart;
   const factory CartEvent.getWishList({required String option}) = _GetWishList;
   const factory CartEvent.cancelOrder(String id) = _CancelOrder;
+  const factory CartEvent.cartRemoval() = _CartRemoval;
 }

@@ -23,6 +23,7 @@ mixin _$CartEvent {
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
     required TResult Function(String id) cancelOrder,
+    required TResult Function() cartRemoval,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +33,7 @@ mixin _$CartEvent {
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
     TResult? Function(String id)? cancelOrder,
+    TResult? Function()? cartRemoval,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +43,7 @@ mixin _$CartEvent {
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
     TResult Function(String id)? cancelOrder,
+    TResult Function()? cartRemoval,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,6 +54,7 @@ mixin _$CartEvent {
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
     required TResult Function(_CancelOrder value) cancelOrder,
+    required TResult Function(_CartRemoval value) cartRemoval,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,6 +64,7 @@ mixin _$CartEvent {
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
     TResult? Function(_CancelOrder value)? cancelOrder,
+    TResult? Function(_CartRemoval value)? cartRemoval,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +74,7 @@ mixin _$CartEvent {
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
     TResult Function(_CancelOrder value)? cancelOrder,
+    TResult Function(_CartRemoval value)? cartRemoval,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -168,6 +174,7 @@ class _$_AddToCart implements _AddToCart {
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
     required TResult Function(String id) cancelOrder,
+    required TResult Function() cartRemoval,
   }) {
     return addToCart(product, option);
   }
@@ -180,6 +187,7 @@ class _$_AddToCart implements _AddToCart {
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
     TResult? Function(String id)? cancelOrder,
+    TResult? Function()? cartRemoval,
   }) {
     return addToCart?.call(product, option);
   }
@@ -192,6 +200,7 @@ class _$_AddToCart implements _AddToCart {
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
     TResult Function(String id)? cancelOrder,
+    TResult Function()? cartRemoval,
     required TResult orElse(),
   }) {
     if (addToCart != null) {
@@ -208,6 +217,7 @@ class _$_AddToCart implements _AddToCart {
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
     required TResult Function(_CancelOrder value) cancelOrder,
+    required TResult Function(_CartRemoval value) cartRemoval,
   }) {
     return addToCart(this);
   }
@@ -220,6 +230,7 @@ class _$_AddToCart implements _AddToCart {
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
     TResult? Function(_CancelOrder value)? cancelOrder,
+    TResult? Function(_CartRemoval value)? cartRemoval,
   }) {
     return addToCart?.call(this);
   }
@@ -232,6 +243,7 @@ class _$_AddToCart implements _AddToCart {
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
     TResult Function(_CancelOrder value)? cancelOrder,
+    TResult Function(_CartRemoval value)? cartRemoval,
     required TResult orElse(),
   }) {
     if (addToCart != null) {
@@ -321,6 +333,7 @@ class _$_GetCart implements _GetCart {
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
     required TResult Function(String id) cancelOrder,
+    required TResult Function() cartRemoval,
   }) {
     return getCart(option);
   }
@@ -333,6 +346,7 @@ class _$_GetCart implements _GetCart {
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
     TResult? Function(String id)? cancelOrder,
+    TResult? Function()? cartRemoval,
   }) {
     return getCart?.call(option);
   }
@@ -345,6 +359,7 @@ class _$_GetCart implements _GetCart {
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
     TResult Function(String id)? cancelOrder,
+    TResult Function()? cartRemoval,
     required TResult orElse(),
   }) {
     if (getCart != null) {
@@ -361,6 +376,7 @@ class _$_GetCart implements _GetCart {
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
     required TResult Function(_CancelOrder value) cancelOrder,
+    required TResult Function(_CartRemoval value) cartRemoval,
   }) {
     return getCart(this);
   }
@@ -373,6 +389,7 @@ class _$_GetCart implements _GetCart {
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
     TResult? Function(_CancelOrder value)? cancelOrder,
+    TResult? Function(_CartRemoval value)? cartRemoval,
   }) {
     return getCart?.call(this);
   }
@@ -385,6 +402,7 @@ class _$_GetCart implements _GetCart {
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
     TResult Function(_CancelOrder value)? cancelOrder,
+    TResult Function(_CartRemoval value)? cartRemoval,
     required TResult orElse(),
   }) {
     if (getCart != null) {
@@ -480,6 +498,7 @@ class _$_RemoveCart implements _RemoveCart {
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
     required TResult Function(String id) cancelOrder,
+    required TResult Function() cartRemoval,
   }) {
     return removeCart(option, id);
   }
@@ -492,6 +511,7 @@ class _$_RemoveCart implements _RemoveCart {
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
     TResult? Function(String id)? cancelOrder,
+    TResult? Function()? cartRemoval,
   }) {
     return removeCart?.call(option, id);
   }
@@ -504,6 +524,7 @@ class _$_RemoveCart implements _RemoveCart {
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
     TResult Function(String id)? cancelOrder,
+    TResult Function()? cartRemoval,
     required TResult orElse(),
   }) {
     if (removeCart != null) {
@@ -520,6 +541,7 @@ class _$_RemoveCart implements _RemoveCart {
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
     required TResult Function(_CancelOrder value) cancelOrder,
+    required TResult Function(_CartRemoval value) cartRemoval,
   }) {
     return removeCart(this);
   }
@@ -532,6 +554,7 @@ class _$_RemoveCart implements _RemoveCart {
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
     TResult? Function(_CancelOrder value)? cancelOrder,
+    TResult? Function(_CartRemoval value)? cartRemoval,
   }) {
     return removeCart?.call(this);
   }
@@ -544,6 +567,7 @@ class _$_RemoveCart implements _RemoveCart {
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
     TResult Function(_CancelOrder value)? cancelOrder,
+    TResult Function(_CartRemoval value)? cartRemoval,
     required TResult orElse(),
   }) {
     if (removeCart != null) {
@@ -633,6 +657,7 @@ class _$_GetWishList implements _GetWishList {
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
     required TResult Function(String id) cancelOrder,
+    required TResult Function() cartRemoval,
   }) {
     return getWishList(option);
   }
@@ -645,6 +670,7 @@ class _$_GetWishList implements _GetWishList {
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
     TResult? Function(String id)? cancelOrder,
+    TResult? Function()? cartRemoval,
   }) {
     return getWishList?.call(option);
   }
@@ -657,6 +683,7 @@ class _$_GetWishList implements _GetWishList {
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
     TResult Function(String id)? cancelOrder,
+    TResult Function()? cartRemoval,
     required TResult orElse(),
   }) {
     if (getWishList != null) {
@@ -673,6 +700,7 @@ class _$_GetWishList implements _GetWishList {
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
     required TResult Function(_CancelOrder value) cancelOrder,
+    required TResult Function(_CartRemoval value) cartRemoval,
   }) {
     return getWishList(this);
   }
@@ -685,6 +713,7 @@ class _$_GetWishList implements _GetWishList {
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
     TResult? Function(_CancelOrder value)? cancelOrder,
+    TResult? Function(_CartRemoval value)? cartRemoval,
   }) {
     return getWishList?.call(this);
   }
@@ -697,6 +726,7 @@ class _$_GetWishList implements _GetWishList {
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
     TResult Function(_CancelOrder value)? cancelOrder,
+    TResult Function(_CartRemoval value)? cartRemoval,
     required TResult orElse(),
   }) {
     if (getWishList != null) {
@@ -784,6 +814,7 @@ class _$_CancelOrder implements _CancelOrder {
     required TResult Function(String option, String id) removeCart,
     required TResult Function(String option) getWishList,
     required TResult Function(String id) cancelOrder,
+    required TResult Function() cartRemoval,
   }) {
     return cancelOrder(id);
   }
@@ -796,6 +827,7 @@ class _$_CancelOrder implements _CancelOrder {
     TResult? Function(String option, String id)? removeCart,
     TResult? Function(String option)? getWishList,
     TResult? Function(String id)? cancelOrder,
+    TResult? Function()? cartRemoval,
   }) {
     return cancelOrder?.call(id);
   }
@@ -808,6 +840,7 @@ class _$_CancelOrder implements _CancelOrder {
     TResult Function(String option, String id)? removeCart,
     TResult Function(String option)? getWishList,
     TResult Function(String id)? cancelOrder,
+    TResult Function()? cartRemoval,
     required TResult orElse(),
   }) {
     if (cancelOrder != null) {
@@ -824,6 +857,7 @@ class _$_CancelOrder implements _CancelOrder {
     required TResult Function(_RemoveCart value) removeCart,
     required TResult Function(_GetWishList value) getWishList,
     required TResult Function(_CancelOrder value) cancelOrder,
+    required TResult Function(_CartRemoval value) cartRemoval,
   }) {
     return cancelOrder(this);
   }
@@ -836,6 +870,7 @@ class _$_CancelOrder implements _CancelOrder {
     TResult? Function(_RemoveCart value)? removeCart,
     TResult? Function(_GetWishList value)? getWishList,
     TResult? Function(_CancelOrder value)? cancelOrder,
+    TResult? Function(_CartRemoval value)? cartRemoval,
   }) {
     return cancelOrder?.call(this);
   }
@@ -848,6 +883,7 @@ class _$_CancelOrder implements _CancelOrder {
     TResult Function(_RemoveCart value)? removeCart,
     TResult Function(_GetWishList value)? getWishList,
     TResult Function(_CancelOrder value)? cancelOrder,
+    TResult Function(_CartRemoval value)? cartRemoval,
     required TResult orElse(),
   }) {
     if (cancelOrder != null) {
@@ -864,6 +900,132 @@ abstract class _CancelOrder implements CartEvent {
   @JsonKey(ignore: true)
   _$$_CancelOrderCopyWith<_$_CancelOrder> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_CartRemovalCopyWith<$Res> {
+  factory _$$_CartRemovalCopyWith(
+          _$_CartRemoval value, $Res Function(_$_CartRemoval) then) =
+      __$$_CartRemovalCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_CartRemovalCopyWithImpl<$Res>
+    extends _$CartEventCopyWithImpl<$Res, _$_CartRemoval>
+    implements _$$_CartRemovalCopyWith<$Res> {
+  __$$_CartRemovalCopyWithImpl(
+      _$_CartRemoval _value, $Res Function(_$_CartRemoval) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_CartRemoval implements _CartRemoval {
+  const _$_CartRemoval();
+
+  @override
+  String toString() {
+    return 'CartEvent.cartRemoval()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_CartRemoval);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Products product, String option) addToCart,
+    required TResult Function(String option) getCart,
+    required TResult Function(String option, String id) removeCart,
+    required TResult Function(String option) getWishList,
+    required TResult Function(String id) cancelOrder,
+    required TResult Function() cartRemoval,
+  }) {
+    return cartRemoval();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Products product, String option)? addToCart,
+    TResult? Function(String option)? getCart,
+    TResult? Function(String option, String id)? removeCart,
+    TResult? Function(String option)? getWishList,
+    TResult? Function(String id)? cancelOrder,
+    TResult? Function()? cartRemoval,
+  }) {
+    return cartRemoval?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Products product, String option)? addToCart,
+    TResult Function(String option)? getCart,
+    TResult Function(String option, String id)? removeCart,
+    TResult Function(String option)? getWishList,
+    TResult Function(String id)? cancelOrder,
+    TResult Function()? cartRemoval,
+    required TResult orElse(),
+  }) {
+    if (cartRemoval != null) {
+      return cartRemoval();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddToCart value) addToCart,
+    required TResult Function(_GetCart value) getCart,
+    required TResult Function(_RemoveCart value) removeCart,
+    required TResult Function(_GetWishList value) getWishList,
+    required TResult Function(_CancelOrder value) cancelOrder,
+    required TResult Function(_CartRemoval value) cartRemoval,
+  }) {
+    return cartRemoval(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddToCart value)? addToCart,
+    TResult? Function(_GetCart value)? getCart,
+    TResult? Function(_RemoveCart value)? removeCart,
+    TResult? Function(_GetWishList value)? getWishList,
+    TResult? Function(_CancelOrder value)? cancelOrder,
+    TResult? Function(_CartRemoval value)? cartRemoval,
+  }) {
+    return cartRemoval?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddToCart value)? addToCart,
+    TResult Function(_GetCart value)? getCart,
+    TResult Function(_RemoveCart value)? removeCart,
+    TResult Function(_GetWishList value)? getWishList,
+    TResult Function(_CancelOrder value)? cancelOrder,
+    TResult Function(_CartRemoval value)? cartRemoval,
+    required TResult orElse(),
+  }) {
+    if (cartRemoval != null) {
+      return cartRemoval(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CartRemoval implements CartEvent {
+  const factory _CartRemoval() = _$_CartRemoval;
 }
 
 /// @nodoc

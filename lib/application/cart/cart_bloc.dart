@@ -83,5 +83,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           (r) =>
               state.copyWith(isLoading: false, isError: none(), wishLlist: r)));
     });
+
+    on<_CartRemoval>((event, emit) async {
+      emit(state.copyWith(isLoading: true));
+      await cartFacade.cartRemoval();
+      emit(state.copyWith(data: [], isLoading: false));
+    });
+
+    void addd() {}
   }
 }

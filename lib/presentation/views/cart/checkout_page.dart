@@ -49,7 +49,7 @@ class CheckoutPage extends StatelessWidget {
                 controller: _nameController,
                 placeholderText: 'Name',
                 validator: (value) {
-                  if (value!.isEmpty) {
+                  if (value!.trim().isEmpty) {
                     return 'Please enter your name';
                   }
                   return null;
@@ -60,7 +60,7 @@ class CheckoutPage extends StatelessWidget {
                 controller: _addressController,
                 placeholderText: 'Address',
                 validator: (value) {
-                  if (value!.isEmpty) {
+                  if (value!.trim().isEmpty) {
                     return 'Please enter your address';
                   }
                   return null;
@@ -74,7 +74,7 @@ class CheckoutPage extends StatelessWidget {
                       controller: _cityController,
                       placeholderText: 'City',
                       validator: (value) {
-                        if (value!.isEmpty) {
+                        if (value!.trim().isEmpty) {
                           return 'Please enter your city';
                         }
                         return null;
@@ -87,7 +87,7 @@ class CheckoutPage extends StatelessWidget {
                       controller: _stateController,
                       placeholderText: 'State',
                       validator: (value) {
-                        if (value!.isEmpty) {
+                        if (value!.trim().isEmpty) {
                           return 'Please enter your state';
                         }
                         return null;
@@ -97,10 +97,11 @@ class CheckoutPage extends StatelessWidget {
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: OutlinedTextField(
+                      keyBoardType: TextInputType.phone,
                       controller: _zipController,
                       placeholderText: 'Zip',
                       validator: (value) {
-                        if (value!.isEmpty) {
+                        if (value!.trim().isEmpty) {
                           return 'Please enter your zip code';
                         }
                         return null;
@@ -145,7 +146,9 @@ class CheckoutPage extends StatelessWidget {
                 builder: (context, state) {
                   return ButtonWidget(
                       onPressed: () async {
-                        await _placeOrder(context);
+                        if (_formKey.currentState!.validate()) {
+                          await _placeOrder(context);
+                        }
                       },
                       text: 'PLACE ORDER',
                       width: double.infinity);

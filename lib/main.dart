@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<CheckDataCubit>(),
         ),
         BlocProvider<PaymentCubit>(
-          create: (context) => getIt<PaymentCubit>()..getProfiele(),
+          create: (context) => getIt<PaymentCubit>(),
         )
       ],
       child: MaterialApp(

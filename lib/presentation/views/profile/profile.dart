@@ -1,4 +1,6 @@
 import 'package:ecommerce/presentation/core/constants/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,6 +11,9 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<PaymentCubit>().getProfiele();
+    });
     return Scaffold(
       body: Center(
         child: BlocBuilder<PaymentCubit, PaymentState>(
@@ -32,7 +37,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       AppConstants.height10,
                       Text(
-                        state.user?.address ?? '',
+                        state.user?.email ?? '',
                         style: const TextStyle(fontSize: 16),
                       ),
                       const SizedBox(height: 20),
@@ -43,9 +48,9 @@ class ProfilePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
-                        '123 Main St, New York, NY 10001',
-                        style: TextStyle(fontSize: 16),
+                      Text(
+                        state.user?.address ?? '',
+                        style: const TextStyle(fontSize: 16),
                       ),
                       const SizedBox(height: 20),
                       const Text(
@@ -55,9 +60,9 @@ class ProfilePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
-                        '+1 (123) 456-7890',
-                        style: TextStyle(fontSize: 16),
+                      Text(
+                        state.user?.phoneNo ?? '',
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ],
                   );

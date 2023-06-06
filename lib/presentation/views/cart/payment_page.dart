@@ -113,11 +113,7 @@ class PaymentPage extends StatelessWidget {
   }
 
   afterPayment(BuildContext context) {
-    for (var e in cart.items) {
-      context
-          .read<CartBloc>()
-          .add(CartEvent.removeCart(option: 'cart', id: e.product.id));
-    }
+    context.read<CartBloc>().add(const CartEvent.cartRemoval());
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(

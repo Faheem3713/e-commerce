@@ -4,6 +4,9 @@ import 'package:ecommerce/presentation/views/auth/phone/phone_auth.dart';
 import 'package:ecommerce/presentation/views/ventor/coupon.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../application/payment/payment_cubit.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -15,33 +18,26 @@ class DrawerWidget extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
+          DrawerHeader(
+            decoration: const BoxDecoration(
               color: AppColor.primaryColor,
             ),
-            child: ListTile(
-              style: ListTileStyle.list,
-              textColor: AppColor.white,
-              leading: CircleAvatar(
-                child: Icon(Icons.flutter_dash),
-              ),
-              title: Text('Shukoor'),
-              subtitle: Text(
-                'Shokoor@gmail.com',
-                style: CustomStyles.kSubtitleTextStyle,
-              ),
+            child: BlocBuilder<PaymentCubit, PaymentState>(
+              builder: (context, state) {
+                return ListTile(
+                  style: ListTileStyle.list,
+                  textColor: AppColor.white,
+                  leading: const CircleAvatar(
+                    child: Icon(Icons.flutter_dash),
+                  ),
+                  title: Text(state.user?.name ?? ''),
+                  subtitle: Text(
+                    state.user?.email ?? '',
+                    style: CustomStyles.kSubtitleTextStyle,
+                  ),
+                );
+              },
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text(' Coupons '),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Coupons(),
-                  ));
-            },
           ),
           ListTile(
             leading: const Icon(Icons.production_quantity_limits),
