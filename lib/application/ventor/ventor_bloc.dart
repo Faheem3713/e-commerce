@@ -24,15 +24,6 @@ class VentorBloc extends Bloc<VentorEvent, VentorState> {
   final IAddProductFacade addProductFacade;
   VentorBloc(this.couponFacade, this.addProductFacade)
       : super(VentorState.initial()) {
-    on<_AddCoupon>((event, emit) async {
-      emit(state.copyWith(isLoading: true));
-      await couponFacade.addCoupon(
-          couponCode: event.couponCode, percentage: event.percent);
-      await couponFacade.getCoupon().then((value) => emit(value.fold(
-          (l) => state.copyWith(isLoading: false, isError: true, coupon: []),
-          (r) => state.copyWith(isLoading: false, isError: false, coupon: r))));
-    });
-
     on<_GetCoupon>((event, emit) async {
       emit(state.copyWith(isLoading: true));
       await couponFacade.getCoupon().then((value) => emit(value.fold(

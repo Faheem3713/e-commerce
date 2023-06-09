@@ -33,8 +33,8 @@ class HomePage extends StatelessWidget {
           HomeCard(event: ProductEvent.kids(), image: 'assets/images/kids.png'),
           AppConstants.height10,
           HomeCard(
-            event: ProductEvent.kids(),
-            image: 'assets/images/kids.png',
+            event: ProductEvent.uniSex(),
+            image: 'assets/images/unisex.png',
           )
         ],
       ),

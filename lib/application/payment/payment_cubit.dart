@@ -9,6 +9,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
+import '../../infrastructure/models/user_model.dart';
 import '../../presentation/views/cart/checkout_page.dart';
 
 part 'payment_state.dart';
@@ -45,7 +46,7 @@ class PaymentCubit extends Cubit<PaymentState> {
   Future<void> placeOrder(Cart cart, String coupon) async {
     await orderFacade.placeOrder(products: cart.items);
 
-    couponFacade.deleteCoupon(coupon);
+    couponFacade.couponValidate(coupon);
     Fluttertoast.showToast(msg: 'Order Successful');
   }
 
@@ -74,7 +75,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     await orderFacade
         .placeOrder(products: cartitem)
         .then((value) => emit(state.copyWith(isErrorOrSuccess: some(true))));
-    couponFacade.deleteCoupon(couponCode);
+    couponFacade.couponValidate(couponCode);
     Fluttertoast.showToast(msg: 'Payment SUCCESS');
   }
 
@@ -100,24 +101,4 @@ class PaymentCubit extends Cubit<PaymentState> {
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {}
-}
-
-class UserModel {
-  final String name, address, zip, phoneNo, email;
-
-  UserModel(
-      {required this.phoneNo,
-      required this.email,
-      required this.name,
-      required this.address,
-      required this.zip});
-
-  factory UserModel.fromJson(Map map) {
-    return UserModel(
-        email: map['email'],
-        name: map['name'] ?? '',
-        address: map['address'] ?? '',
-        zip: map['zip'] ?? '',
-        phoneNo: map['phoneNo'] ?? '');
-  }
 }

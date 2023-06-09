@@ -31,7 +31,6 @@ class PhoneAuth extends StatelessWidget {
                     ? ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Generating OTP')))
                     : null;
-                //  state.authFailureOrSuccess.fold(() => null, (a) => null);
               },
               builder: (context, state) {
                 return Form(

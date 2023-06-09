@@ -104,6 +104,7 @@ class CartCard extends StatelessWidget {
     if (_quantityCount.value < quantity) {
       _quantityCount.value++;
       _updateCart(context);
+      context.read<CheckDataCubit>().findTotal(product.price, true);
     }
   }
 
@@ -111,6 +112,7 @@ class CartCard extends StatelessWidget {
     if (_quantityCount.value > 1) {
       _quantityCount.value--;
       _updateCart(context);
+      context.read<CheckDataCubit>().findTotal(product.price, false);
     }
   }
 

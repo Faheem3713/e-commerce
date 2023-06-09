@@ -1,11 +1,9 @@
 import 'package:ecommerce/presentation/views/auth/google/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../../core/theme/app_color.dart';
 import '../../../core/theme/text_styles.dart';
 import '../admin_page.dart';
-import '../coupon.dart';
 
 class VentorDrawer extends StatelessWidget {
   const VentorDrawer({super.key});
@@ -27,9 +25,9 @@ class VentorDrawer extends StatelessWidget {
               leading: CircleAvatar(
                 child: Icon(Icons.flutter_dash),
               ),
-              title: Text('Shukoor'),
+              title: Text('ShoeFusion'),
               subtitle: Text(
-                'Shokoor@gmail.com',
+                'Sell your shoes',
                 style: CustomStyles.kSubtitleTextStyle,
               ),
             ),
@@ -40,17 +38,6 @@ class VentorDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (ctx) => ProductAddPage()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text(' Coupons '),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Coupons(),
-                  ));
             },
           ),
           ListTile(

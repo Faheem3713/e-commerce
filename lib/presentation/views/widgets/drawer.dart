@@ -1,7 +1,6 @@
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
 import 'package:ecommerce/presentation/core/theme/text_styles.dart';
 import 'package:ecommerce/presentation/views/auth/phone/phone_auth.dart';
-import 'package:ecommerce/presentation/views/ventor/coupon.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

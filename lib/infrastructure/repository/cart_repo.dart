@@ -141,7 +141,6 @@ class CartRepository implements ICartFacade {
                   products.where((product) => cart.contains(product.id)));
             },
           );
-          await _databaseReference.
         }
       }
       return right(cartProducts);

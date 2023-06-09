@@ -66,11 +66,12 @@ class AuthRepository implements IAuthFacade {
       log('message');
       await _auth.createUserWithEmailAndPassword(
           email: email, password: passWord);
-      await _dbref.child('Ventors').push().set({
+      final key = _dbref.child('Ventors').push();
+      await key.set({
         "name": _auth.currentUser!.email,
         'email': emailAddress.getOrCrash().toString(),
         'wallet': 0,
-        'id': _auth.currentUser?.uid,
+        'id': key.key,
         'products': []
       });
       log('mm');

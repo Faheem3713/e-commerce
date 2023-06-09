@@ -74,10 +74,10 @@ class UserRegistration extends StatelessWidget {
                   onPressed: () async {
                     if (_key.currentState!.validate()) {
                       final dbref = FirebaseDatabase.instance.ref();
-                      await dbref
-                          .child('Users')
-                          .push()
+                      final key = dbref.child('Users').push();
+                      await key
                           .set({
+                            'id': key.key,
                             'name': _nameController.text,
                             "phoneNo":
                                 FirebaseAuth.instance.currentUser!.phoneNumber,

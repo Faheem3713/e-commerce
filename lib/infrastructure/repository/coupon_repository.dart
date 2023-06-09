@@ -34,7 +34,7 @@ class CouponRepository implements ICouponFacade {
   }
 
   @override
-  Future<void> deleteCoupon(String couponCode) async {
+  Future<void> couponValidate(String couponCode) async {
     try {
       final couponRef = (await _ref.child('coupons').get()).value as Map;
       couponRef.forEach((key, value) async {
@@ -45,23 +45,6 @@ class CouponRepository implements ICouponFacade {
       });
     } catch (e) {
       log(e.toString());
-    }
-  }
-
-  @override
-  Future<Either<MainFailure, Unit>> addCoupon({
-    required String couponCode,
-    required int percentage,
-  }) async {
-    try {
-      await _ref.child('coupons').push().set({
-        'coupon': couponCode,
-        'percent': percentage,
-        'used': false,
-      });
-      return right(unit);
-    } catch (e) {
-      return left(const MainFailure.serverFailure());
     }
   }
 

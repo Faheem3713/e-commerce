@@ -1,15 +1,11 @@
 import 'package:ecommerce/application/checkData/check_data_cubit.dart';
 import 'package:ecommerce/application/cart/cart_bloc.dart';
-import 'package:ecommerce/infrastructure/models/product_model.dart';
-import 'package:ecommerce/presentation/core/constants/constants.dart';
 import 'package:ecommerce/presentation/core/theme/app_color.dart';
 import 'package:ecommerce/presentation/core/theme/text_styles.dart';
 import 'package:ecommerce/presentation/views/cart/checkout_page.dart';
-import 'package:ecommerce/presentation/views/cart/invoice_page.dart';
 import 'package:ecommerce/presentation/views/widgets/show_messsage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../widgets/appbarwidget.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/outlined_button.dart';
@@ -21,12 +17,12 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _couponController = TextEditingController();
+    final _couponController = TextEditingController();
     final Set<CartItem> orders = {};
     double discountPrice = 0;
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CheckDataCubit>().clearTotal();
       context.read<CartBloc>().add(const CartEvent.getCart(option: 'cart'));
     });

@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/domain/auth/email_address.dart';
 import 'package:ecommerce/domain/auth/i_auth_facade.dart';
 import 'package:ecommerce/domain/auth/password.dart';
 import 'package:ecommerce/domain/repository/phone_auth_facade.dart';
-import 'package:ecommerce/presentation/views/auth/phone/phone_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
